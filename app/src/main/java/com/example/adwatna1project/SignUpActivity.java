@@ -2,14 +2,13 @@ package com.example.adwatna1project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -26,7 +25,8 @@ public class SignUpActivity extends AppCompatActivity {
         button=findViewById(R.id.back2_btn);
         editText= findViewById(R.id.gender);
         radioGroup=findViewById(R.id.gender_layout);
-
+        btn1=findViewById(R.id.btn1);
+        btn2=findViewById(R.id.btn2);
 
         //to prevent user from writing in gender EditText
         editText.setFocusable(false);
@@ -38,12 +38,36 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        //if user clicked on already checked radio button
+        View.OnTouchListener radioButtonOnTouchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (((RadioButton) v).isChecked()) {
+                    // If the button was already checked, uncheck them all
+                    radioGroup.clearCheck();
+                    editText.setText(null);
+                    // Prevent the system from re-checking it
+                    return true;
+                }
+                return false;
+            }
+        };
+        btn1.setOnTouchListener(radioButtonOnTouchListener);
+        btn2.setOnTouchListener(radioButtonOnTouchListener);
+
         // to make male and female button disappear after choosing one
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId==R.id.btn1||checkedId==R.id.btn2){
 
+                if(checkedId==R.id.btn1){
+
+                    editText.setText(btn1.getText());
+                    radioGroup.setVisibility(View.GONE);
+                }
+                else if(checkedId==R.id.btn2){
+
+                    editText.setText(btn2.getText());
                     radioGroup.setVisibility(View.GONE);
                 }
             }
@@ -54,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(SignUpActivity.this,Welcome1Activity.class);
+                Intent intent = new Intent(SignUpActivity.this, WelcomeActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.os.Handler;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -27,7 +26,7 @@ private ImageView logo;
         new Handler().postDelayed(new Runnable() {
               @Override
               public void run() {
-                  Intent intent=new Intent(MainActivity.this,Welcome1Activity.class);
+                  Intent intent=new Intent(MainActivity.this, WelcomeActivity.class);
                   startActivity(intent);
                   finish();
               }

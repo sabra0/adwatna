@@ -31,8 +31,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textSize="30sp"
-                android:id="@+id/login_textView"
-                />
+                android:id="@+id/login_textView" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -101,8 +100,7 @@
                 app:layout_constraintBottom_toTopOf="@id/birthday"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="gone"
-                >
+                android:visibility="gone">
                 <RadioButton
                     android:id="@+id/btn1"
                     android:text="@string/male"
@@ -121,7 +119,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/birthday"
-                android:hint="@string/birhday" />
+                android:hint="@string/college" />
             <Button
                 android:id="@+id/sign_button"
                 android:layout_width="300dp"

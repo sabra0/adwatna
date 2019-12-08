@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(LoginActivity.this,Welcome1Activity.class);
+                Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
                 startActivity(intent);
                 finish();
             }

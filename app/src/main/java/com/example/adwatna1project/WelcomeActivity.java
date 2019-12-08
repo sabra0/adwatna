@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Welcome1Activity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
     Button btn1,btn2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class Welcome1Activity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(Welcome1Activity.this,SignUpActivity.class);
+                Intent intent =new Intent(WelcomeActivity.this,SignUpActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -41,7 +40,7 @@ public class Welcome1Activity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Welcome1Activity.this,LoginActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
