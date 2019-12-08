@@ -1,29 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="8">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="30dp"
-        android:textSize="45sp"
-        android:text="@string/welcome"
-        android:id="@+id/welcome_txt_view"/>
-    <TextView
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:id="@+id/layout_1"
+        android:background="@drawable/layout_curve">
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_above="@id/spinner1"
-        android:textSize="30sp"
-        android:text="@string/choose"/>
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/spinner1"
-        />
-
-</RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_weight="3">
+        <Button
+            android:paddingRight="100dp"
+            android:paddingLeft="100dp"
+            android:id="@+id/btn1"
+            android:textColor="#F00D7F"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sign_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="50dp"
+            android:text="@string/sign" />
+        <Button
+            android:paddingLeft="100dp"
+            android:paddingRight="100dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#fefefe"
+            android:id="@+id/btn2"
+            android:background="@drawable/login_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn1"
+            android:text="@string/login" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

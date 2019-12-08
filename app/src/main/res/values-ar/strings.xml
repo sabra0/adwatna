@@ -3,4 +3,24 @@
     <string name="app_name">ADWATNA (1)project</string>
     <string name="welcome">مرحبا</string>
     <string name="choose">اختر اللغه</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="sign">انشاء حساب</string>
+    <string name="email">الحساب</string>
+    <string name="password">كلمه المرور</string>
+    <string name="orlogin">او سجل بواسطه</string>
+    <string name="forget">نسيت كلمه المرور؟</string>
+    <string name="orsign">او انشئ سجل بواسطه</string>
+    <string name="name">الاسم</string>
+    <string name="confirm_password">تاكيد كلمه المرور</string>
+    <string name="gender">النوع</string>
+    <string name="birhday">تاريخ الميلاد</string>
+
+
+
+
+
+
+
+
+
 </resources>

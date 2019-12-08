@@ -20,12 +20,34 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class Welcome1Activity extends AppCompatActivity {
+    Button btn1,btn2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome1);
 
+        btn1=findViewById(R.id.btn1);
+        btn2=findViewById(R.id.btn2);
 
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(Welcome1Activity.this,SignUpActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Welcome1Activity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        //spinner to change language between ar and en
         Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 
         ArrayList<String> arrayList = new ArrayList<>();
@@ -44,17 +66,13 @@ public class Welcome1Activity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
                 if (pos == 1) {
-
                     Toast.makeText(parent.getContext(),"You have selected English", Toast.LENGTH_SHORT).show();
                     setAppLocale("en");
-
                     restartActivity();
 
                 } else if (pos == 2) {
-
                     Toast.makeText(parent.getContext(),"You have selected Arabic", Toast.LENGTH_SHORT).show();
                     setAppLocale("ar");
-
                     restartActivity();
                 }
             }
@@ -62,7 +80,6 @@ public class Welcome1Activity extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
-
     }
     // to change language
     public void setAppLocale (String localeCode) {
@@ -76,7 +93,6 @@ public class Welcome1Activity extends AppCompatActivity {
         }
         res.updateConfiguration(conf,dm);
     }
-
     // without this method the activity will not change after changing rhe language
     private void restartActivity() {
         Intent intent = getIntent();
