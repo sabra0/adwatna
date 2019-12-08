@@ -13,6 +13,10 @@
     <string name="confirm_password">Confirm password</string>
     <string name="gender">Gender</string>
     <string name="birhday">Birthday</string>
+    <string name="female">female</string>
+    <string name="male">male</string>
+
+
 
 
 
