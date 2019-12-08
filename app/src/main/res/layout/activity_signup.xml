@@ -131,6 +131,8 @@
                 android:text="@string/sign"
                 android:background="@drawable/login_bg" />
             <TextView
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/sign_button"
@@ -169,7 +171,8 @@
                 app:layout_constraintTop_toBottomOf="@id/or_textView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/google_image" />
+                app:layout_constraintEnd_toStartOf="@id/google_image"
+                android:layout_marginBottom="30dp"/>
             <Button
                 android:drawableLeft="@drawable/ic_google_plus"
                 android:text="Google"
@@ -182,7 +185,8 @@
                 app:layout_constraintTop_toBottomOf="@id/or_textView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/facebook_image"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="30dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </ScrollView>
