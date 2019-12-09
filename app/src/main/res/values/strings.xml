@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">ADWATNA</string>
-    <string name="welcome">Welcome</string>
-    <string name="choose">choose your language</string>
     <string name="login">login</string>
     <string name="sign">sign up</string>
     <string name="email">Email</string>

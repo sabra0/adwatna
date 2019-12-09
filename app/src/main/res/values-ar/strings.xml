@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ADWATNA</string>
-    <string name="welcome">مرحبا</string>
-    <string name="choose">اختر اللغه</string>
     <string name="login">تسجيل الدخول</string>
     <string name="sign">انشاء حساب</string>
     <string name="email">الحساب</string>

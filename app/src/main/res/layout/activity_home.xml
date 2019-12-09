@@ -10,7 +10,7 @@
         android:layout_height="0dp"
         android:layout_weight="5"
         android:id="@+id/layout_1"
-        android:background="@drawable/layout_curve">
+        android:background="@drawable/layout_curve_home">
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:textColor="#F00D7F"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sign_bg"
+            android:background="@drawable/sign_button_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +43,7 @@
             android:layout_marginTop="10dp"
             android:textColor="#fefefe"
             android:id="@+id/btn2"
-            android:background="@drawable/login_bg"
+            android:background="@drawable/login_button_bg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
