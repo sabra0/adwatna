@@ -17,11 +17,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".HomeActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.adwatna1project.WelcomeActivity" />
+                android:value="com.example.adwatna1project.HomeActivity" />
         </activity>
         <activity android:name=".SignUpActivity"/>
         <activity android:name=".LoginActivity"/>

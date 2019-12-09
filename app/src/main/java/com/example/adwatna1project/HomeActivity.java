@@ -18,12 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     Button btn1,btn2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome1);
+        setContentView(R.layout.activity_home);
 
         btn1=findViewById(R.id.btn1);
         btn2=findViewById(R.id.btn2);
@@ -31,7 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(WelcomeActivity.this,SignUpActivity.class);
+                Intent intent =new Intent(HomeActivity.this,SignUpActivity.class);
                 startActivity(intent);
             }
         });
@@ -39,7 +39,7 @@ public class WelcomeActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this,LoginActivity.class);
+                Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });
