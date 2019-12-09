@@ -7,13 +7,12 @@ import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
 
 public class SplashActivity extends AppCompatActivity {
-private static int SPLASH_TIME_OUT=4000; //time of splash screen: 4 seconds
-ImageView gif ;
-private ImageView logo;
+    private static int SPLASH_TIME_OUT=4000; //time of splash screen: 4 seconds
+    ImageView gif ;
+    private ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
