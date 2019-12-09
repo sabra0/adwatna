@@ -1,26 +1,26 @@
 package com.example.adwatna1project;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUpActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     EditText editText;
-    Button button ;
+    TextView back;
     RadioButton btn1,btn2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        button=findViewById(R.id.back2_btn);
+        back =findViewById(R.id.back2);
         editText= findViewById(R.id.gender);
         radioGroup=findViewById(R.id.gender_layout);
         btn1=findViewById(R.id.btn1);
@@ -41,12 +41,12 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-//if user clicked on already checked radio button
+//if user clicked on already checked radio back
         View.OnTouchListener radioButtonOnTouchListener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (((RadioButton) v).isChecked()) {
-                    // If the button was already checked, uncheck them all
+                    // If the back was already checked, uncheck them all
                     radioGroup.clearCheck();
                     editText.setText(null); // clear gender EditText
                     // Prevent the system from re-checking it
@@ -58,7 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
         btn1.setOnTouchListener(radioButtonOnTouchListener);
         btn2.setOnTouchListener(radioButtonOnTouchListener);
 
-        // to make male and female button disappear after choosing one
+        // to make male and female back disappear after choosing one
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -76,8 +76,8 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        // button to get back
-        button.setOnClickListener(new View.OnClickListener() {
+        // back to get back
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
