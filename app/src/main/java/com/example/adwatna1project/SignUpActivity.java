@@ -8,11 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUpActivity extends AppCompatActivity {
-
     RadioGroup radioGroup;
     EditText editText;
     Button button ;
@@ -28,24 +26,29 @@ public class SignUpActivity extends AppCompatActivity {
         btn1=findViewById(R.id.btn1);
         btn2=findViewById(R.id.btn2);
 
-        //to prevent user from writing in gender EditText
+//to prevent user from writing in gender EditText
         editText.setFocusable(false);
 
+//controls what happens on click on gender text
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                radioGroup.setVisibility(View.VISIBLE);
+                if(radioGroup.getVisibility()==View.VISIBLE)
+                    radioGroup.setVisibility(View.GONE);//hides radio group(male,female)
+
+                else //if radio group is un visible
+                radioGroup.setVisibility(View.VISIBLE);//shows radio group
             }
         });
 
-        //if user clicked on already checked radio button
+//if user clicked on already checked radio button
         View.OnTouchListener radioButtonOnTouchListener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (((RadioButton) v).isChecked()) {
                     // If the button was already checked, uncheck them all
                     radioGroup.clearCheck();
-                    editText.setText(null);
+                    editText.setText(null); // clear gender EditText
                     // Prevent the system from re-checking it
                     return true;
                 }
@@ -77,7 +80,6 @@ public class SignUpActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 finish();
             }
         });
