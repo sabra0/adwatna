@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".SplashActivity"
     android:background="@color/backgroundColor">
-
-
 <ImageView
     android:id="@+id/logo"
     android:layout_width="100dp"
@@ -16,15 +14,12 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    />
+    app:layout_constraintEnd_toEndOf="parent" />
     <ImageView
         android:id="@+id/gif"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/cogwheel"
-        />
-
+        android:src="@drawable/cogwheel" />
 </androidx.constraintlayout.widget.ConstraintLayout>

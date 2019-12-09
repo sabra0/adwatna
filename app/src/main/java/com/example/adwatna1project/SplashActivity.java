@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-public class MainActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 private static int SPLASH_TIME_OUT=4000; //time of splash screen: 4 seconds
 ImageView gif ;
 private ImageView logo;
@@ -18,15 +18,16 @@ private ImageView logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash);
 
         logo= findViewById(R.id.logo);
         gif=findViewById(R.id.gif);
 
+//function for splash screen
         new Handler().postDelayed(new Runnable() {
               @Override
               public void run() {
-                  Intent intent=new Intent(MainActivity.this, WelcomeActivity.class);
+                  Intent intent=new Intent(SplashActivity.this, WelcomeActivity.class);
                   startActivity(intent);
                   finish();
               }
@@ -34,12 +35,11 @@ private ImageView logo;
                 ,SPLASH_TIME_OUT
         );
 
-//to make animation while app is opening
+//to make animation for logo imageView while app is opening
         Animation myanim = AnimationUtils.loadAnimation(this,R.anim.mysplashanimation);
         logo.startAnimation(myanim);
 
-
-// to make gif not like jus an image
+// to make gif not like just an image
         Glide.with(getApplicationContext())
                 .asGif()
                 .load(R.drawable.cogwheel)
