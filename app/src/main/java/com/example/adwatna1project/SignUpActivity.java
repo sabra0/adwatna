@@ -29,6 +29,8 @@ public class SignUpActivity extends AppCompatActivity {
     TextView back;
     RadioButton btn1,btn2;
 
+    //comment
+
     //for firebase
     EditText mFullName,mEmail,mPassword,mConfirmPassword,mCollege;
     Button mRegister;
