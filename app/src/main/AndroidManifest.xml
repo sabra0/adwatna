@@ -9,22 +9,24 @@
         android:roundIcon="@drawable/splash"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".WelcomePage"></activity>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".HomeActivity">
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.adwatna1project.HomeActivity" />
         </activity>
-        <activity android:name=".SignUpActivity"/>
-        <activity android:name=".LoginActivity"/>
-
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".LoginActivity" />
     </application>
+
 </manifest>

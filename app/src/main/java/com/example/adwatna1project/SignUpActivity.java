@@ -1,20 +1,41 @@
 package com.example.adwatna1project;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     EditText editText;
     TextView back;
     RadioButton btn1,btn2;
+
+    //for firebase
+    EditText mFullName,mEmail,mPassword,mConfirmPassword,mCollege;
+    Button mRegister;
+    RadioButton radioMale,radioFemale;
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
+    FirebaseAuth fAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +102,95 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+
+        //firebase code
+        mFullName = findViewById(R.id.name_editText);
+        mEmail = findViewById(R.id.email_login);
+        mPassword = findViewById(R.id.password_login);
+        mConfirmPassword = findViewById(R.id.password_confirm);
+        mCollege = findViewById(R.id.birthday);
+        mRegister = findViewById(R.id.sign_button);
+        radioMale = findViewById(R.id.btn1);
+        radioFemale = findViewById(R.id.btn2);
+
+        fAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("User");
+
+        mRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String name = mFullName.getText().toString();
+                final String email = mEmail.getText().toString();
+                final String password = mPassword.getText().toString();
+                final String confirmPassword = mConfirmPassword.getText().toString();
+                final String college = mCollege.getText().toString();
+                String gender="";
+
+                if(radioMale.isChecked()){
+                    gender="Male";
+                }
+                if(radioFemale.isChecked()){
+                    gender="Female";
+                }
+                if (TextUtils.isEmpty(name)) {
+                    mFullName.setError("Please Enter Full Name");
+                    return;
+                }
+                if (TextUtils.isEmpty(email)) {
+                    mEmail.setError("Please Enter Email");
+                    return;
+                }
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    mEmail.setError("Invalid Email");
+                    mEmail.requestFocus();
+                    return;
+                }
+                if (TextUtils.isEmpty(password)) {
+                    mPassword.setError("Please Enter Password");
+                    return;
+                }
+                if(password.length()<6){
+                    mPassword.setError("Password less than 6 Character");
+                    return;
+                }
+                if (TextUtils.isEmpty(confirmPassword)) {
+                    mPassword.setError("Please Enter confirmPassword");
+                    return;
+                }
+                if (TextUtils.isEmpty(college)) {
+                    mCollege.setError("Please Enter College");
+                    return;
+                }
+
+                final String finalGender = gender;
+                fAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    User user = new User(name,email,password,confirmPassword, finalGender,college);
+                                    FirebaseDatabase.getInstance().getReference("User")
+                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Toast.makeText(SignUpActivity.this, "Registration Complete", Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(getApplicationContext(),WelcomePage.class));
+                                        }
+                                    });
+
+                                } else {
+                                    // If sign up fails, display a message to the user.
+                                    Toast.makeText(SignUpActivity.this, "Registration is Failed", Toast.LENGTH_LONG).show();
+                                }
+
+                                // ...
+                            }
+                        });
             }
         });
     }

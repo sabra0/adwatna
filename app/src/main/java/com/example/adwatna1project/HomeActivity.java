@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
+
+
     Button btn1,btn2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
