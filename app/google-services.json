@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "368585443581",
+    "firebase_url": "https://adwatna-adfb8.firebaseio.com",
+    "project_id": "adwatna-adfb8",
+    "storage_bucket": "adwatna-adfb8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368585443581:android:5ea2b6028a27c9f4d7d694",
+        "android_client_info": {
+          "package_name": "com.example.adwatna1project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368585443581-kdkb9mu7gd5n62fv66r35lsj5mvu29d0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.adwatna1project",
+            "certificate_hash": "627ef1697e2a50ea6fe702e76a3912cfe4332879"
+          }
+        },
+        {
+          "client_id": "368585443581-1bkgvcgpo3hcikq3v1tic0si16ok0bho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhdGYWRC3TPRCl9MWuls2tDzkDwxyzW7U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368585443581-1bkgvcgpo3hcikq3v1tic0si16ok0bho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
