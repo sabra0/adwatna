@@ -28,14 +28,14 @@ public class SignUpActivity extends AppCompatActivity {
     EditText editText;
     TextView back;
     RadioButton btn1,btn2;
-    
+
 
     //for firebase
     EditText mFullName,mEmail,mPassword,mConfirmPassword,mCollege;
     Button mRegister;
     RadioButton radioMale,radioFemale;
     DatabaseReference databaseReference;
-    FirebaseDatabase firebaseDatabase;
+    //FirebaseDatabase firebaseDatabase;
     FirebaseAuth fAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,14 +136,15 @@ public class SignUpActivity extends AppCompatActivity {
                 if(radioFemale.isChecked()){
                     gender="Female";
                 }
-                if (TextUtils.isEmpty(name)) {
-                    mFullName.setError("Please Enter Full Name");
-                    return;
-                }
                 if (TextUtils.isEmpty(email)) {
                     mEmail.setError("Please Enter Email");
                     return;
                 }
+                if (TextUtils.isEmpty(name)) {
+                    mFullName.setError("Please Enter Full Name");
+                    return;
+                }
+
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     mEmail.setError("Invalid Email");
                     mEmail.requestFocus();
@@ -172,17 +173,9 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    User user = new User(name,email,password,confirmPassword, finalGender,college);
-                                    FirebaseDatabase.getInstance().getReference("User")
-                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            Toast.makeText(SignUpActivity.this, "Registration Complete", Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(getApplicationContext(),WelcomePage.class));
-                                        }
-                                    });
+                                    Toast.makeText(SignUpActivity.this, "Registration Complete", Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent(getApplicationContext(),WelcomePage.class));
+
 
                                 } else {
                                     // If sign up fails, display a message to the user.
@@ -196,3 +189,15 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 }
+
+//                                    // Sign in success, update UI with the signed-in user's information
+//                                    User user = new User(name,email,password,confirmPassword, finalGender,college);
+//                                    FirebaseDatabase.getInstance().getReference("User")
+//                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<Void> task) {
+//                                            Toast.makeText(SignUpActivity.this, "Registration Complete", Toast.LENGTH_LONG).show();
+//                                            startActivity(new Intent(getApplicationContext(),WelcomePage.class));
+//                                        }
+//                                    });
