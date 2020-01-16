@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -37,18 +38,19 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="50dp"
             android:text="@string/sign" />
+
         <Button
+            android:id="@+id/btn2"
+            android:layout_width="260dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/login_button_bg"
             android:paddingLeft="100dp"
             android:paddingRight="100dp"
-            android:layout_marginTop="10dp"
+            android:text="@string/login"
             android:textColor="#fefefe"
-            android:id="@+id/btn2"
-            android:background="@drawable/login_button_bg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn1"
-            android:text="@string/login" />
+            app:layout_constraintTop_toBottomOf="@id/btn1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

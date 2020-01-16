@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <LinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -42,40 +42,44 @@
                 android:textSize="15sp"
                 android:text="Customer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="584dp">
+
             <EditText
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/sign_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/email_login"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"/>
-            <EditText
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/email_login"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
                 app:layout_constraintBottom_toTopOf="@id/sign_button"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
                 android:id="@+id/password_login"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/password"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                app:layout_constraintBottom_toTopOf="@id/sign_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_login" />
+
             <Button
                 android:id="@+id/sign_button"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/login_button_bg"
                 android:text="@string/login"
-                android:background="@drawable/login_button_bg" />
-            <TextView
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <!--TextView
                 android:paddingTop="30dp"
                 android:paddingBottom="30dp"
                 android:layout_width="wrap_content"
@@ -85,8 +89,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/orlogin"
-                android:id="@+id/or_textView" />
-            <TextView
+                android:id="@+id/or_textView" /!-->
+            <!--TextView
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:background="#000000"
@@ -94,8 +98,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/or_textView"
-                android:text="@string/orlogin" />
-            <TextView
+                android:text="@string/orlogin" /!-->
+            <!--TextView
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:background="#000000"
@@ -103,16 +107,19 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/or_textView"
-                android:text="@string/orlogin" />
+                android:text="@string/orlogin" /!-->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/sign_button"
+                android:text="@string/forget"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/or_textView"
-                android:text="@string/forget" />
-            <Button
+                app:layout_constraintTop_toBottomOf="@id/sign_button"
+                app:layout_constraintVertical_bias="0.145" />
+
+            <!--Button
                 android:text="Facebook"
                 android:textColor="#fefefe"
                 android:background="@drawable/facebook_bg"
@@ -139,7 +146,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/facebook_image"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="30dp"/>
+                android:layout_marginBottom="30dp"/!-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </ScrollView>

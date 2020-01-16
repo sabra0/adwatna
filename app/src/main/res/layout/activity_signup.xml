@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <LinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -42,106 +42,120 @@
                 android:textSize="15sp"
                 android:text="Customer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="582dp">
+
             <EditText
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/name_editText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/email_login"
-                android:hint="@string/email" />
-            <EditText
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/email_login"
-                app:layout_constraintBottom_toTopOf="@id/password_login"
-                app:layout_constraintStart_toStartOf="parent"
+                android:hint="@string/name"
+                app:layout_constraintBottom_toTopOf="@id/name_editText"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="50dp"/>
+
+            <EditText
                 android:id="@+id/name_editText"
-                android:hint="@string/name" />
-            <EditText
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/name_editText"
-                app:layout_constraintBottom_toTopOf="@id/password_confirm"
-                app:layout_constraintStart_toStartOf="parent"
+                android:hint="@string/email"
+                app:layout_constraintBottom_toTopOf="@id/password_login"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_login" />
+
+            <EditText
                 android:id="@+id/password_login"
-                android:hint="@string/password" />
-            <EditText
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/password_login"
-                app:layout_constraintBottom_toTopOf="@id/gender"
-                app:layout_constraintStart_toStartOf="parent"
+                android:hint="@string/password"
+                app:layout_constraintBottom_toTopOf="@id/password_confirm"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name_editText" />
+
+            <EditText
                 android:id="@+id/password_confirm"
-                android:hint="@string/confirm_password" />
-            <EditText
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/password_confirm"
-                app:layout_constraintBottom_toTopOf="@id/gender_layout"
-                app:layout_constraintStart_toStartOf="parent"
+                android:hint="@string/confirm_password"
+                app:layout_constraintBottom_toTopOf="@id/gender"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/password_login" />
+
+            <EditText
                 android:id="@+id/gender"
-                android:hint="@string/gender" >
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/gender"
+                app:layout_constraintBottom_toTopOf="@id/gender_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/password_confirm">
 
             </EditText>
+
             <RadioGroup
                 android:id="@+id/gender_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/gender"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/birthday"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="gone">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gender">
+
                 <RadioButton
                     android:id="@+id/btn1"
-                    android:text="@string/male"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content" />
+                    android:text="@string/male" />
+
                 <RadioButton
                     android:id="@+id/btn2"
-                    android:text="@string/female"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content" />
+                    android:text="@string/female" />
             </RadioGroup>
+
             <EditText
+                android:id="@+id/birthday"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/gender_layout"
-                app:layout_constraintStart_toStartOf="parent"
+                android:hint="@string/college"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/birthday"
-                android:hint="@string/college" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gender_layout" />
+
             <Button
                 android:id="@+id/sign_button"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/birthday"
-                app:layout_constraintBottom_toTopOf="@id/or_textView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/login_button_bg"
                 android:text="@string/sign"
-                android:background="@drawable/login_button_bg" />
+                app:layout_constraintBottom_toTopOf="@id/or_textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.504"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/birthday" />
+
             <TextView
-                android:paddingTop="30dp"
-                android:paddingBottom="30dp"
+                android:id="@+id/or_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/sign_button"
-                app:layout_constraintBottom_toTopOf="@id/facebook_image"
-                app:layout_constraintStart_toStartOf="parent"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Already have account?"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/orsign"
-                android:id="@+id/or_textView" />
-            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birthday" />
+            <!--TextView
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:background="#000000"
@@ -149,8 +163,8 @@
                 app:layout_constraintBottom_toTopOf="@id/facebook_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/or_textView"
-                android:text="@string/orlogin" />
-            <TextView
+                android:text="@string/orlogin" /!-->
+            <!--TextView
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:background="#000000"
@@ -158,8 +172,8 @@
                 app:layout_constraintBottom_toTopOf="@id/facebook_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/or_textView"
-                android:text="@string/orlogin" />
-            <Button
+                android:text="@string/orlogin" /!-->
+            <!--Button
                 android:text="Facebook"
                 android:textColor="#fefefe"
                 android:background="@drawable/facebook_bg"
@@ -186,7 +200,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/facebook_image"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="30dp"/>
+                android:layout_marginBottom="30dp"/!-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </ScrollView>
