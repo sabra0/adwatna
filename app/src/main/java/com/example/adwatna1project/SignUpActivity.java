@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -28,6 +29,8 @@ public class SignUpActivity extends AppCompatActivity {
     EditText editText;
     TextView back;
     RadioButton btn1,btn2;
+
+    private Firebase mRef;
 
 
     //for firebase
@@ -47,6 +50,9 @@ public class SignUpActivity extends AppCompatActivity {
         radioGroup=findViewById(R.id.gender_layout);
         btn1=findViewById(R.id.btn1);
         btn2=findViewById(R.id.btn2);
+
+//fire base reference
+        mRef=new Firebase("https://adwatna-adfb8.firebaseio.com/Users");
 
 //to prevent user from writing in gender EditText
         editText.setFocusable(false);
@@ -105,8 +111,6 @@ public class SignUpActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
         //firebase code
         mFullName = findViewById(R.id.name_editText);
         mEmail = findViewById(R.id.email_login);
@@ -144,7 +148,6 @@ public class SignUpActivity extends AppCompatActivity {
                     mFullName.setError("Please Enter Full Name");
                     return;
                 }
-
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     mEmail.setError("Invalid Email");
                     mEmail.requestFocus();
@@ -162,12 +165,19 @@ public class SignUpActivity extends AppCompatActivity {
                     mPassword.setError("Please Enter confirmPassword");
                     return;
                 }
+                if(!(confirmPassword.equals(password))){
+                    mConfirmPassword.setError("Wrong password");
+                    return;
+                }
                 if (TextUtils.isEmpty(college)) {
                     mCollege.setError("Please Enter College");
                     return;
                 }
-
+//to use gender in inner class must be final and
+// if we defined it as final at the top we will not be able to change it's value
+//while changing in radio buttons.
                 final String finalGender = gender;
+
                 fAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -176,6 +186,19 @@ public class SignUpActivity extends AppCompatActivity {
                                     Toast.makeText(SignUpActivity.this, "Registration Complete", Toast.LENGTH_LONG).show();
                                     startActivity(new Intent(getApplicationContext(),WelcomePage.class));
 
+                                    //now updating data base with new user info
+                                    Firebase userChild = mRef.push();
+
+                                    Firebase nameChild = userChild.child("Name");
+                                    nameChild.setValue(name);
+                                    Firebase mailChild = userChild.child("Email");
+                                    mailChild.setValue(email);
+                                    Firebase passChild = userChild.child("password");
+                                    passChild.setValue(password);
+                                    Firebase genderChild = userChild.child("Gender");
+                                    genderChild.setValue(finalGender);
+                                    Firebase collageChild = userChild.child("Collage");
+                                    collageChild.setValue(college);
 
                                 } else {
                                     // If sign up fails, display a message to the user.
@@ -189,7 +212,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 }
-
 //                                    // Sign in success, update UI with the signed-in user's information
 //                                    User user = new User(name,email,password,confirmPassword, finalGender,college);
 //                                    FirebaseDatabase.getInstance().getReference("User")
