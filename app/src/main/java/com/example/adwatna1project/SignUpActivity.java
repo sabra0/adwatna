@@ -37,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText mFullName,mEmail,mPassword,mConfirmPassword,mCollege;
     Button mRegister;
     RadioButton radioMale,radioFemale;
+    TextView haveAccount;
     DatabaseReference databaseReference;
     //FirebaseDatabase firebaseDatabase;
     FirebaseAuth fAuth;
@@ -120,6 +121,15 @@ public class SignUpActivity extends AppCompatActivity {
         mRegister = findViewById(R.id.sign_button);
         radioMale = findViewById(R.id.btn1);
         radioFemale = findViewById(R.id.btn2);
+        haveAccount = findViewById(R.id.or_textView);
+
+        haveAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         fAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("User");
