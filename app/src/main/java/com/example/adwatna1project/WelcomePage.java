@@ -1,20 +1,18 @@
 package com.example.adwatna1project;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Visibility;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -22,46 +20,67 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-import java.util.Objects;
-
 public class WelcomePage extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
     FirebaseDatabase mFirebaseDatabase;
-    DatabaseReference mRef;
+    DatabaseReference allDataReference;
+    ImageView searchImageView,backImageView;
+    EditText editText;
+    String text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
 
-
-        /*//Actionbar (not working)
-
-        //show actionbar
-        getSupportActionBar().show();
-
-        ActionBar actionBar = getSupportActionBar();
-
-        //set title
-        actionBar.setTitle("Tools list");*/
+        editText =findViewById(R.id.search_text);
+        searchImageView=findViewById(R.id.search_btn);
+        backImageView=findViewById(R.id.back_to_all_btn);
 
         //recycler view
         mRecyclerView=findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
+       // mRecyclerView.setHasFixedSize(true);
 
+        int numberOfColumns =3;
         //set layout as linear layout
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,numberOfColumns));
 
         //send query to fireBase database
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mRef=mFirebaseDatabase.getReference("Data");
+        allDataReference=mFirebaseDatabase.getReference("Data");
 
+        //search on click on search icon
+        searchImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (editText.getVisibility()==View.GONE)
+                {
+                    editText.setVisibility(View.VISIBLE);
+                    //todo : change search icon color
+                }
+                else {
+                    //after writing text to search for
+                    text = editText.getText().toString();
+                    fireBaseSearch(text);
+                    editText.setVisibility(View.GONE);
+                    backImageView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        //after searching for specific item get back to all list
+        backImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fireBaseSearch(null);//search again for all items
+                backImageView.setVisibility(View.GONE);
+            }
+        });
     }
-
-    //search
+    //search function
     private void fireBaseSearch (String searchText){
 
-        Query fireBaseSearchQuery = mRef.orderByChild("title").startAt(searchText).endAt(searchText + "uf8ff");
+        Query fireBaseSearchQuery = allDataReference.orderByChild("title").startAt(searchText).endAt(searchText + "uf8ff");
 
         FirebaseRecyclerAdapter<Model,ViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Model, ViewHolder>(
@@ -73,9 +92,7 @@ public class WelcomePage extends AppCompatActivity {
                     @Override
                     protected void populateViewHolder(ViewHolder viewHolder, Model model, int i) {
 
-                        viewHolder.setDetails(getApplicationContext(),model.getTitle(),model.getDescription(),model.getImage());
-
-
+                        viewHolder.setDetails(getApplicationContext(),model.getTitle(),model.getPrice(),model.getImage());
                     }
                 };
         //set adapter to recyclerView
@@ -91,20 +108,21 @@ public class WelcomePage extends AppCompatActivity {
                         Model.class,
                         R.layout.row_item,
                         ViewHolder.class,
-                        mRef
+                        allDataReference
                 ) {
                     @Override
                     protected void populateViewHolder(ViewHolder viewHolder, Model model, int i) {
 
-                        viewHolder.setDetails(getApplicationContext(),model.getTitle(),model.getDescription(),model.getImage());
+                        viewHolder.setDetails(getApplicationContext(),model.getTitle(),model.getPrice(),model.getImage());
                     }
                 };
         //set adapter to recyclerView
         mRecyclerView.setAdapter(firebaseRecyclerAdapter);
 
     }
+// for actionBar to make search button and options menu
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu,menu);
         MenuItem item = menu.findItem(R.id.action_search);
@@ -126,6 +144,7 @@ public class WelcomePage extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
     //for option item in activity
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -135,5 +154,5 @@ public class WelcomePage extends AppCompatActivity {
             //do some thing
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

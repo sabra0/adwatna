@@ -117,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.email_login);
         mPassword = findViewById(R.id.password_login);
         mConfirmPassword = findViewById(R.id.password_confirm);
-        mCollege = findViewById(R.id.birthday);
+        mCollege = findViewById(R.id.college);
         mRegister = findViewById(R.id.sign_button);
         radioMale = findViewById(R.id.btn1);
         radioFemale = findViewById(R.id.btn2);

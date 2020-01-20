@@ -1,10 +1,18 @@
 package com.example.adwatna1project;
 
 public class Model {
-    String title,image,description; //these names must match with names in database
+    String title,image,description,price; //these names must match with names in database
 
     public Model(){
 
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getTitle() {

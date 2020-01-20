@@ -105,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/birthday"
+                app:layout_constraintBottom_toTopOf="@id/college"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/gender">
@@ -122,15 +122,26 @@
                     android:layout_height="wrap_content"
                     android:text="@string/female" />
             </RadioGroup>
-
             <EditText
-                android:id="@+id/birthday"
+                android:id="@+id/college"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/college"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/gender_layout" />
+
+            <TextView
+                android:id="@+id/hint_text_view"
+                android:padding="20dp"
+                android:textStyle="italic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Your password must be at least 6 characters long and must contain letters, numbers and special characters. Cannot contain whitespace."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/college"
+                app:layout_constraintBottom_toTopOf="@id/sign_button"/>
 
             <Button
                 android:id="@+id/sign_button"
@@ -142,7 +153,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.504"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/birthday" />
+                app:layout_constraintTop_toBottomOf="@id/hint_text_view"
+                />
 
             <TextView
                 android:id="@+id/or_textView"
@@ -154,7 +166,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/birthday" />
+                app:layout_constraintTop_toBottomOf="@+id/hint_text_view" />
             <!--TextView
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
