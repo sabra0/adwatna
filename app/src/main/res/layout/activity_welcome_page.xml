@@ -8,7 +8,7 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="150dp"
         android:background="@drawable/tools_bg"
         android:alpha="0.4"
         android:id="@+id/relative_layout"
@@ -30,8 +30,8 @@
             android:visibility="gone"
             android:hint="search for tool"
             android:id="@+id/search_text"
-            android:textColor="#000"
-            android:textColorHint="#000"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
             />
         <ImageView
             android:id="@+id/back_to_all_btn"
@@ -42,9 +42,62 @@
             android:layout_alignParentStart="true"
             android:visibility="gone"/>
     </RelativeLayout>
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="all categories"
+            android:layout_margin="10dp"
+            android:id="@+id/all_categories"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="engineering"
+            android:layout_margin="10dp"
+            android:id="@+id/engineering_category"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="art"
+            android:layout_margin="10dp"
+            android:id="@+id/art_category"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="electronics"
+            android:layout_margin="10dp"
+            android:id="@+id/electronics_category"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="books"
+            android:layout_margin="10dp"
+            android:id="@+id/books_category"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="devices"
+            android:layout_margin="10dp"
+            android:id="@+id/devices_category"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerView"/>
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/welcome_page_frame"/>
 </LinearLayout>
