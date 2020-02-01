@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/rTitleTv"
             android:text="title"
-            android:textColor="#000"
+            android:paddingStart="10dp"
+            android:textColor="#484c7f"
             android:textStyle="bold"
             android:textSize="20sp"
             />
@@ -30,7 +31,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/rPriceTv"
             android:text="price"
+            android:paddingStart="10dp"
             android:textSize="15sp"
+            android:textColor="#ac8daf"
             />
 
     </LinearLayout>

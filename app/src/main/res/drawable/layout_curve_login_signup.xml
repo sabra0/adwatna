@@ -12,7 +12,7 @@
             android:shape="oval"
             android:useLevel="true">
 
-            <solid android:color="#94166A"/>
+            <solid android:color="#484c7f"/>
             <corners
 
                 android:bottomLeftRadius="50dp"

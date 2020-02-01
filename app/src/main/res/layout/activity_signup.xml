@@ -19,7 +19,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:drawableLeft="@drawable/ic_back"
-                android:background="#94166A"/>
+                android:background="#484c7f"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

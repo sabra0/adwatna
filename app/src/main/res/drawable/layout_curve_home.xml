@@ -12,8 +12,8 @@
             android:shape="oval"
             android:useLevel="true">
 
-            <gradient android:startColor="#153CBB"
-                android:endColor="#F10074"
+            <gradient android:startColor="#484c7f"
+                android:endColor="#ddb6c6"
                 android:angle="135"/>
             <corners
 

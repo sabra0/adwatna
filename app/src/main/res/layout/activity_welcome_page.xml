@@ -9,10 +9,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@drawable/tools_bg"
-        android:alpha="0.4"
-        android:id="@+id/relative_layout"
-        >
+        android:background="@drawable/main_image"
+        android:id="@+id/relative_layout">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="#484c7f"
+            android:alpha="0.7"/>
         <ImageView
             android:id="@+id/search_btn"
             android:layout_width="wrap_content"
@@ -21,7 +24,17 @@
             app:showAsAction="always"
             app:actionViewClass="android.widget.SearchView"
             android:layout_alignParentEnd="true"
-            android:layout_margin="10dp"/>
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="10dp"/>
+
+        <ImageButton
+            android:id="@+id/option_menu_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/option_menu"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,43 +64,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp"
-            >
+            android:padding="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="all categories"
+            android:text="All Categories"
             android:layout_margin="10dp"
             android:id="@+id/all_categories"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="engineering"
+            android:text="Engineering"
             android:layout_margin="10dp"
             android:id="@+id/engineering_category"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="art"
+            android:text="Art"
             android:layout_margin="10dp"
             android:id="@+id/art_category"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="electronics"
+            android:text="Electronics"
             android:layout_margin="10dp"
             android:id="@+id/electronics_category"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="books"
+            android:text="Books"
             android:layout_margin="10dp"
             android:id="@+id/books_category"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="devices"
+            android:text="Devices"
             android:layout_margin="10dp"
             android:id="@+id/devices_category"/>
 
@@ -99,5 +111,6 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/welcome_page_frame"/>
+            android:id="@+id/welcome_page_frame"
+            />
 </LinearLayout>

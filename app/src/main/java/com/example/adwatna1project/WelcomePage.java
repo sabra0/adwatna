@@ -2,22 +2,30 @@ package com.example.adwatna1project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class WelcomePage extends AppCompatActivity {
 
+    FirebaseAuth auth;
+
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference allDataReference;
     ImageView searchImageView,backImageView;
+    ImageButton optionMenuImageView;
     EditText editText;
     String text;
     TextView allCategories,engineeringCategory,artCategory,electronicsCategory,
@@ -26,6 +34,10 @@ public class WelcomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
+
+        auth = FirebaseAuth.getInstance();
+
+        userValidation();
 
         editText =findViewById(R.id.search_text);
         searchImageView=findViewById(R.id.search_btn);
@@ -37,9 +49,44 @@ public class WelcomePage extends AppCompatActivity {
         booksCategory=findViewById(R.id.books_category);
         devicesCategory = findViewById(R.id.devices_category);
 
+        optionMenuImageView = findViewById(R.id.option_menu_btn);
+        optionMenuImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Creating the instance of PopupMenu
+                PopupMenu popup = new PopupMenu(WelcomePage.this, optionMenuImageView);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.toolbar_menu, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+//                        Toast.makeText(WelcomePage.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+//                        return true;
+                        int id = item.getItemId();
+                        if (id == R.id.upload_item){
+                            startActivity(new Intent(WelcomePage.this, UploadItemActivity.class));
+                            return true;
+                        }
+                        if (id == R.id.profile){
+                            startActivity(new Intent(WelcomePage.this,ProfileActivity.class));
+                            return true;
+                        }
+                        if (id == R.id.logout){
+                            signOut();
+                            return true;
+                        }
+                        return true;
+                    }
+                });
+                popup.show();
+            }
+
+        });
+
         //to open allCategories fragment by default
         getSupportFragmentManager().beginTransaction().replace(R.id.welcome_page_frame,new AllCategoriesFragment()).commit();
-        allCategories.setTextColor(getResources().getColor(R.color.colorAccent));
+        allCategories.setTextColor(getResources().getColor(R.color.selectFragment));
 
         //send query to fireBase database
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -78,7 +125,7 @@ public class WelcomePage extends AppCompatActivity {
         allCategories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                allCategories.setTextColor(getResources().getColor(R.color.colorAccent));
+                allCategories.setTextColor(getResources().getColor(R.color.selectFragment));
                 engineeringCategory.setTextColor(getResources().getColor(R.color.colorBlack));
                 artCategory.setTextColor(getResources().getColor(R.color.colorBlack));
                 electronicsCategory.setTextColor(getResources().getColor(R.color.colorBlack));
@@ -93,7 +140,7 @@ public class WelcomePage extends AppCompatActivity {
         engineeringCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                engineeringCategory.setTextColor(getResources().getColor(R.color.colorAccent));
+                engineeringCategory.setTextColor(getResources().getColor(R.color.selectFragment));
                 allCategories.setTextColor(getResources().getColor(R.color.colorBlack));
                 artCategory.setTextColor(getResources().getColor(R.color.colorBlack));
                 electronicsCategory.setTextColor(getResources().getColor(R.color.colorBlack));
@@ -108,7 +155,7 @@ public class WelcomePage extends AppCompatActivity {
         artCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                artCategory.setTextColor(getResources().getColor(R.color.colorAccent));
+                artCategory.setTextColor(getResources().getColor(R.color.selectFragment));
                 allCategories.setTextColor(getResources().getColor(R.color.colorBlack));
                 engineeringCategory.setTextColor(getResources().getColor(R.color.colorBlack));
                 electronicsCategory.setTextColor(getResources().getColor(R.color.colorBlack));
@@ -123,7 +170,7 @@ public class WelcomePage extends AppCompatActivity {
         electronicsCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                electronicsCategory.setTextColor(getResources().getColor(R.color.colorAccent));
+                electronicsCategory.setTextColor(getResources().getColor(R.color.selectFragment));
                 allCategories.setTextColor(getResources().getColor(R.color.colorBlack));
                 engineeringCategory.setTextColor(getResources().getColor(R.color.colorBlack));
                 artCategory.setTextColor(getResources().getColor(R.color.colorBlack));
@@ -137,7 +184,7 @@ public class WelcomePage extends AppCompatActivity {
         booksCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                booksCategory.setTextColor(getResources().getColor(R.color.colorAccent));
+                booksCategory.setTextColor(getResources().getColor(R.color.selectFragment));
                 allCategories.setTextColor(getResources().getColor(R.color.colorBlack));
                 engineeringCategory.setTextColor(getResources().getColor(R.color.colorBlack));
                 electronicsCategory.setTextColor(getResources().getColor(R.color.colorBlack));
@@ -152,7 +199,7 @@ public class WelcomePage extends AppCompatActivity {
         devicesCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                devicesCategory.setTextColor(getResources().getColor(R.color.colorAccent));
+                devicesCategory.setTextColor(getResources().getColor(R.color.selectFragment));
                 allCategories.setTextColor(getResources().getColor(R.color.colorBlack));
                 engineeringCategory.setTextColor(getResources().getColor(R.color.colorBlack));
                 electronicsCategory.setTextColor(getResources().getColor(R.color.colorBlack));
@@ -197,8 +244,37 @@ public class WelcomePage extends AppCompatActivity {
         AllCategoriesFragment.mRecyclerView.setAdapter(firebaseRecyclerAdapter);
 
     }
+    private void userValidation(){
+        if(auth.getCurrentUser()==null){
+            startActivity(new Intent(WelcomePage.this,HomeActivity.class));
+            finish();
+        }
+    }
 
-// for actionBar to make search button and options menu
+    private void signOut(){
+        auth.signOut();
+        userValidation();
+    }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.action_settings){
+//            Toast.makeText(WelcomePage.this, "Setting....", Toast.LENGTH_LONG).show();
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+
+
+    // for actionBar to make search button and options menu
 
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {

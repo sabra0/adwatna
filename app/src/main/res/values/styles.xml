@@ -7,5 +7,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AlerDialog" parent="Theme.AppCompat.Light.Dialog.MinWidth">
+        <item name="android:windowAnimationStyle" >@android:style/Animation.Dialog</item>
+    </style>
 
 </resources>

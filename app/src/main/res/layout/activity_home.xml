@@ -29,7 +29,7 @@
             android:paddingRight="100dp"
             android:paddingLeft="100dp"
             android:id="@+id/btn1"
-            android:textColor="#F00D7F"
+            android:textColor="#6e5773"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/sign_button_bg"

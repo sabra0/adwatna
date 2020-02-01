@@ -2,11 +2,14 @@ package com.example.adwatna1project;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -108,33 +111,32 @@ public class LoginActivity extends AppCompatActivity {
     //forget password methods
 
     public void showForgetPasswordDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.Theme_MaterialComponents_Light_Dialog_Alert);
-        builder.setTitle("Forget Password");
-        LinearLayout linearLayout = new LinearLayout(this);
-
-        final EditText emailET = new EditText(this);
-        emailET.setHint("  Email");
-        emailET.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        linearLayout.addView(emailET);
-        linearLayout.setPadding(1,1,1,1);
-        builder.setView(linearLayout);
-        emailET.setMinEms(16);
-
-        builder.setPositiveButton("Recover", new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this, R.style.AlerDialog);
+        View view = LayoutInflater.from(LoginActivity.this)
+                .inflate(R.layout.forget_password_dialog, (ViewGroup) findViewById(R.id.dialog_layout_container));
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        final EditText emailEditText = view.findViewById(R.id.email_forget_password);
+        emailEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        emailEditText.setMinEms(16);
+        view.findViewById(R.id.recover_button).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String email = emailET.getText().toString();
+            public void onClick(View v) {
+                String email = emailEditText.getText().toString();
                 beginRecoverPassword(email);
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
 
             }
         });
-        builder.show();
+        view.findViewById(R.id.cancel_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        if (alertDialog.getWindow() != null) {
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        alertDialog.show();
     }
 
     private void beginRecoverPassword(String email) {

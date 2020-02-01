@@ -32,15 +32,14 @@ public class SignUpActivity extends AppCompatActivity {
 
     private Firebase mRef;
 
-
     //for firebase
     EditText mFullName,mEmail,mPassword,mConfirmPassword,mCollege;
     Button mRegister;
     RadioButton radioMale,radioFemale;
     TextView haveAccount;
-    DatabaseReference databaseReference;
-    //FirebaseDatabase firebaseDatabase;
+
     FirebaseAuth fAuth;
+    DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +111,7 @@ public class SignUpActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         //firebase code
         mFullName = findViewById(R.id.name_editText);
         mEmail = findViewById(R.id.email_login);
@@ -132,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         fAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("User");
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,12 +193,16 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    String currentUserId = fAuth.getCurrentUser().getUid();
+
                                     Toast.makeText(SignUpActivity.this, "Registration Complete", Toast.LENGTH_LONG).show();
                                     startActivity(new Intent(getApplicationContext(),WelcomePage.class));
 
                                     //now updating data base with new user info
-                                    Firebase userChild = mRef.push();
+                                    Firebase userChild = mRef.child(currentUserId);
 
+                                    Firebase idChild = userChild.child("uid");
+                                    idChild.setValue(currentUserId);
                                     Firebase nameChild = userChild.child("Name");
                                     nameChild.setValue(name);
                                     Firebase mailChild = userChild.child("Email");
@@ -214,22 +218,9 @@ public class SignUpActivity extends AppCompatActivity {
                                     // If sign up fails, display a message to the user.
                                     Toast.makeText(SignUpActivity.this, "Registration is Failed", Toast.LENGTH_LONG).show();
                                 }
-
-                                // ...
                             }
                         });
             }
         });
     }
 }
-//                                    // Sign in success, update UI with the signed-in user's information
-//                                    User user = new User(name,email,password,confirmPassword, finalGender,college);
-//                                    FirebaseDatabase.getInstance().getReference("User")
-//                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<Void> task) {
-//                                            Toast.makeText(SignUpActivity.this, "Registration Complete", Toast.LENGTH_LONG).show();
-//                                            startActivity(new Intent(getApplicationContext(),WelcomePage.class));
-//                                        }
-//                                    });
