@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android" />
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -105,13 +111,67 @@
         android:layout_marginEnd="30dp"
         android:hint="Enter item price"
         android:layout_marginTop="5dp"/>
+    <TextView
+        android:id="@+id/item_category_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:layout_below="@id/item_price_edit_text"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:textColor="#484c7f"/>
+
+    <EditText
+        android:id="@+id/item_category_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_category_text_view"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="30dp"
+        android:hint="Enter item category"
+        android:layout_marginTop="5dp"/>
+        <RadioGroup
+            android:id="@+id/category_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_below="@id/item_category_edit_text"
+            >
+            <RadioButton
+                android:id="@+id/engineering_radio_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="engineering" />
+            <RadioButton
+                android:id="@+id/art_radio_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="art" />
+            <RadioButton
+                android:id="@+id/electronics_radio_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="electronics" />
+            <RadioButton
+                android:id="@+id/books_radio_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="books" />
+            <RadioButton
+                android:id="@+id/devices_radio_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="devices" />
+
+        </RadioGroup>
 
     <TextView
         android:id="@+id/item_image_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Image"
-        android:layout_below="@id/item_price_edit_text"
+        android:layout_below="@id/category_group"
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         android:textSize="18sp"
@@ -140,3 +200,4 @@
 
 
 </RelativeLayout>
+</ScrollView>

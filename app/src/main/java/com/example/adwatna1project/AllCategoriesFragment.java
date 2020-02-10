@@ -16,6 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AllCategoriesFragment extends Fragment {
     static RecyclerView mRecyclerView;
+//    com.example.adwatna1project.FirebaseRecyclerAdapter adapter=new com.example.adwatna1project.FirebaseRecyclerAdapter();
+
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference allDataReference;
 
@@ -62,6 +64,7 @@ public class AllCategoriesFragment extends Fragment {
                     }
                 };
         //set adapter to recyclerView
+        //todo adapter replace firebaseRecyclerAdapter
         mRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 }

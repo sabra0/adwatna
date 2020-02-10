@@ -221,11 +221,13 @@ public class ProfileActivity extends AppCompatActivity {
                     String name = dataSnapshot.child("Name").getValue().toString();
                     String email = dataSnapshot.child("Email").getValue().toString();
                     String college = dataSnapshot.child("Collage").getValue().toString();
+                    if (dataSnapshot.hasChild("image")){
                     String retrieveProfileImage = dataSnapshot.child("image").getValue().toString();
+                    Picasso.get().load(retrieveProfileImage).into(profileImage);
+                    }
                     userNameTextView.setText(name);
                     emailTextView.setText(email);
                     collegeTextView.setText(college);
-                    Picasso.get().load(retrieveProfileImage).into(profileImage);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
