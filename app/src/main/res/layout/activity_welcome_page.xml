@@ -18,9 +18,9 @@
             android:alpha="0.7"/>
         <ImageView
             android:id="@+id/search_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_action_search"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/searchicon"
             app:showAsAction="always"
             app:actionViewClass="android.widget.SearchView"
             android:layout_alignParentEnd="true"
@@ -31,7 +31,7 @@
             android:id="@+id/option_menu_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/option_menu"
+            android:background="@drawable/menuicon"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="5dp" />
 

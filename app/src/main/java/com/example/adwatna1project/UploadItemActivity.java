@@ -49,6 +49,7 @@ public class UploadItemActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference itemRef;
     StorageReference itemImageRef;
+    String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +153,7 @@ public class UploadItemActivity extends AppCompatActivity {
         itemImageRef = FirebaseStorage.getInstance().getReference().child("Items Images");
 
         currentItemId = itemRef.push().getKey();
+        currentUserId = mAuth.getCurrentUser().getUid();
 
         itemImageView.setOnClickListener(new View.OnClickListener() {
             //todo make one itemCategory string
@@ -214,7 +216,7 @@ public class UploadItemActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(UploadItemActivity.this, "Item Updated Successfully", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(UploadItemActivity.this, "Item Uploaded Successfully", Toast.LENGTH_LONG).show();
                                     } else {
                                         String message = task.getException().toString();
                                         Toast.makeText(UploadItemActivity.this, "Error: " + message, Toast.LENGTH_LONG).show();
@@ -227,7 +229,21 @@ public class UploadItemActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(UploadItemActivity.this, "Item Updated Successfully", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(UploadItemActivity.this, "Item Uploaded Successfully", Toast.LENGTH_LONG).show();
+                                        finish();
+                                    } else {
+                                        String message = task.getException().toString();
+                                        Toast.makeText(UploadItemActivity.this, "Error: " + message, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                    //to save item in ownerItem
+                    itemRef.child("Users").child(currentUserId).child("MyItems").child(currentItemId).updateChildren(profileMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(UploadItemActivity.this, "Item Uploaded Successfully", Toast.LENGTH_LONG).show();
                                         finish();
                                     } else {
                                         String message = task.getException().toString();
@@ -269,19 +285,9 @@ public class UploadItemActivity extends AppCompatActivity {
 
                                 final String downloadUrl = uri.toString();
                                 Picasso.get().load(downloadUrl).into(itemImageView);
-                                itemRef.child("Data").child(currentItemId).child("image").setValue(downloadUrl)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(UploadItemActivity.this, "Item image stored to firebase database successfully.", Toast.LENGTH_SHORT).show();
-                                                } else {
-                                                    String message = task.getException().getMessage();
-                                                    Toast.makeText(UploadItemActivity.this, "Error Occurred..." + message, Toast.LENGTH_SHORT).show();
-                                                }
-                                            }
-                                        });
+                                itemRef.child("Data").child(currentItemId).child("image").setValue(downloadUrl);
                                 itemRef.child("Data2").child(itemCategory).child(currentItemId).child("image").setValue(downloadUrl);
+                                itemRef.child("Users").child(currentUserId).child("MyItems").child(currentItemId).child("image").setValue(downloadUrl);
 
                             }
                         });

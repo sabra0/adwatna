@@ -69,7 +69,7 @@ public class WelcomePage extends AppCompatActivity {
                             return true;
                         }
                         if (id == R.id.profile){
-                            startActivity(new Intent(WelcomePage.this,ProfileActivity.class));
+                            startActivity(new Intent(WelcomePage.this, ProfileActivity.class));
                             return true;
                         }
                         if (id == R.id.logout){
@@ -93,33 +93,33 @@ public class WelcomePage extends AppCompatActivity {
         allDataReference=mFirebaseDatabase.getReference("Data");
 
         //search on click on search icon
-        searchImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (editText.getVisibility()==View.GONE)
-                {
-                    editText.setVisibility(View.VISIBLE);
-                    //todo : change search icon color
-                }
-                else {
-                    //after writing text to search for
-                    text = editText.getText().toString();
-                    fireBaseSearch(text);
-                    editText.setVisibility(View.GONE);
-                    backImageView.setVisibility(View.VISIBLE);
-
-                }
-            }
-        });
-        //after searching for specific item get back to all list
-        backImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fireBaseSearch(null);//search again for all items
-                backImageView.setVisibility(View.GONE);
-            }
-        });
+    //        searchImageView.setOnClickListener(new View.OnClickListener() {
+    //            @Override
+    //            public void onClick(View v) {
+    //
+    //                if (editText.getVisibility()==View.GONE)
+    //                {
+    //                    editText.setVisibility(View.VISIBLE);
+    //                    //todo : change search icon color
+    //                }
+    //                else {
+    //                    //after writing text to search for
+    //                    text = editText.getText().toString();
+    //                    fireBaseSearch(text);
+    //                    editText.setVisibility(View.GONE);
+    //                    backImageView.setVisibility(View.VISIBLE);
+    //
+    //                }
+    //            }
+    //        });
+    //        //after searching for specific item get back to all list
+    //        backImageView.setOnClickListener(new View.OnClickListener() {
+    //            @Override
+    //            public void onClick(View v) {
+    //                fireBaseSearch(null);//search again for all items
+    //                backImageView.setVisibility(View.GONE);
+    //            }
+    //        });
 
         //for all categories fragment
         allCategories.setOnClickListener(new View.OnClickListener() {
@@ -213,37 +213,37 @@ public class WelcomePage extends AppCompatActivity {
 
     }
     //search function
-    private void fireBaseSearch (String searchText){
-
-        Query fireBaseSearchQuery = allDataReference.orderByChild("title").startAt(searchText).endAt(searchText + "uf8ff");
-
-        FirebaseRecyclerAdapter<Model,ViewHolder> firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<Model, ViewHolder>(
-                        Model.class,
-                        R.layout.row_item,
-                        ViewHolder.class,
-                        fireBaseSearchQuery
-                ) {
-                    @Override
-                    protected void populateViewHolder(ViewHolder viewHolder, Model model, int i) {
-
-                        viewHolder.setDetails(getApplicationContext(),model.getTitle(),model.getPrice(),model.getImage());
-                    }
-                };
-       /* //open all categories fragment after search
-        getSupportFragmentManager().beginTransaction().replace(R.id.welcome_page_frame,new AllCategoriesFragment()).commit();
-        //set  horizontal scroll view colors
-        allCategories.setTextColor(getResources().getColor(R.color.colorAccent));
-        engineeringCategory.setTextColor(getResources().getColor(R.color.colorBlack));
-        artCategory.setTextColor(getResources().getColor(R.color.colorBlack));
-        electronicsCategory.setTextColor(getResources().getColor(R.color.colorBlack));
-        booksCategory.setTextColor(getResources().getColor(R.color.colorBlack));
-        devicesCategory.setTextColor(getResources().getColor(R.color.colorBlack));*/
-
-        //set adapter to recyclerView
-        AllCategoriesFragment.mRecyclerView.setAdapter(firebaseRecyclerAdapter);
-
-    }
+//    private void fireBaseSearch (String searchText){
+//
+//        Query fireBaseSearchQuery = allDataReference.orderByChild("title").startAt(searchText).endAt(searchText + "uf8ff");
+//
+//        FirebaseRecyclerAdapter<Model,ViewHolder> firebaseRecyclerAdapter =
+//                new FirebaseRecyclerAdapter<Model, ViewHolder>(
+//                        Model.class,
+//                        R.layout.row_item,
+//                        ViewHolder.class,
+//                        fireBaseSearchQuery
+//                ) {
+//                    @Override
+//                    protected void populateViewHolder(ViewHolder viewHolder, Model model, int i) {
+//
+//                        viewHolder.setDetails(getApplicationContext(),model.getTitle(),model.getPrice(),model.getImage());
+//                    }
+//                };
+//       /* //open all categories fragment after search
+//        getSupportFragmentManager().beginTransaction().replace(R.id.welcome_page_frame,new AllCategoriesFragment()).commit();
+//        //set  horizontal scroll view colors
+//        allCategories.setTextColor(getResources().getColor(R.color.colorAccent));
+//        engineeringCategory.setTextColor(getResources().getColor(R.color.colorBlack));
+//        artCategory.setTextColor(getResources().getColor(R.color.colorBlack));
+//        electronicsCategory.setTextColor(getResources().getColor(R.color.colorBlack));
+//        booksCategory.setTextColor(getResources().getColor(R.color.colorBlack));
+//        devicesCategory.setTextColor(getResources().getColor(R.color.colorBlack));*/
+//
+//        //set adapter to recyclerView
+//        AllCategoriesFragment.mRecyclerView.setAdapter(firebaseRecyclerAdapter);
+//
+//    }
     private void userValidation(){
         if(auth.getCurrentUser()==null){
             startActivity(new Intent(WelcomePage.this,HomeActivity.class));

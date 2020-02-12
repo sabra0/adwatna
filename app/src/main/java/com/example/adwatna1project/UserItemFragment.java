@@ -1,9 +1,8 @@
 package com.example.adwatna1project;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,41 +15,55 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 
-public class ArtCategoryFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class UserItemFragment extends Fragment {
+
     static RecyclerView mRecyclerView;
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference allDataReference;
+    String currentUserId;
+    FirebaseAuth auth;
+    DatabaseReference allDataRef;
 
-    public ArtCategoryFragment() {
+
+    public UserItemFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView= inflater.inflate(R.layout.fragment_art_category, container, false);
+        View rootView= inflater.inflate(R.layout.fragment_user_item, container, false);
 
         //recycler view
-        mRecyclerView=rootView.findViewById(R.id.art_category_rv);
+        mRecyclerView=rootView.findViewById(R.id.all_items_rv);
         // mRecyclerView.setHasFixedSize(true);
+
 
         int numberOfColumns =3;
         //set layout as grid layout
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),numberOfColumns));
 
         //send query to fireBase database
+        auth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        allDataReference=mFirebaseDatabase.getReference("Data2").child("art");
+        currentUserId = auth.getCurrentUser().getUid();
+        allDataReference=mFirebaseDatabase.getReference("Users").child(currentUserId).child("MyItems");
+        allDataRef=mFirebaseDatabase.getReference("Data");
 
         return rootView;
     }
@@ -59,32 +72,43 @@ public class ArtCategoryFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Model>()
+        final FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Model>()
                 .setQuery(allDataReference,Model.class)
                 .build();
 
-        FirebaseRecyclerAdapter<Model, AllCategoriesFragment.ViewHolder> adapter =
+        final FirebaseRecyclerAdapter<Model, AllCategoriesFragment.ViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Model, AllCategoriesFragment.ViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull final AllCategoriesFragment.ViewHolder holder, int position, @NonNull final Model model) {
+                    protected void onBindViewHolder(@NonNull AllCategoriesFragment.ViewHolder holder, final int position, @NonNull Model model) {
                         holder.tittleTextView.setText(model.getTitle());
                         holder.priceTextView.setText(model.getPrice());
                         Picasso.get().load(model.getImage()).into(holder.itemImageView);
 
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        final DatabaseReference itemRef = getRef(position);
+                        final String myKey = itemRef.getKey();
+
+                        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                             @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(getContext(),ItemDetailsActivity.class);
-                                intent.putExtra("title",model.getTitle());
-                                intent.putExtra("description",model.getDescription());
-                                intent.putExtra("price",model.getPrice());
-                                Drawable mDrawable = holder.itemImageView.getDrawable();
-                                Bitmap bitmap = ((BitmapDrawable)mDrawable).getBitmap();
-                                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                                bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
-                                byte[] bytes = byteArrayOutputStream.toByteArray();
-                                intent.putExtra("image",bytes);
-                                startActivity(intent);
+                            public boolean onLongClick(View v) {
+                                //Toast.makeText(getContext(), "Testttttt", Toast.LENGTH_LONG).show();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                builder.setTitle("Delete");
+                                builder.setMessage("Are you sure to delete this item?");
+                                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        allDataReference.child(myKey).removeValue();
+                                        allDataRef.child(myKey).removeValue();
+                                    }
+                                });
+                                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                builder.create().show();
+                                return false;
                             }
                         });
 
@@ -112,6 +136,7 @@ public class ArtCategoryFragment extends Fragment {
             tittleTextView = itemView.findViewById(R.id.rTitleTv);
             priceTextView = itemView.findViewById(R.id.rPriceTv);
             itemImageView = itemView.findViewById(R.id.rImageView);
+
         }
     }
 
@@ -132,6 +157,8 @@ public class ArtCategoryFragment extends Fragment {
 //                    }
 //                };
 //        //set adapter to recyclerView
+//        //todo adapter replace firebaseRecyclerAdapter
 //        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
 //    }
+
 }

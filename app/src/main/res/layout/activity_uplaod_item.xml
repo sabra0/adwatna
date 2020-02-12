@@ -137,7 +137,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:layout_below="@id/item_category_edit_text"
-            >
+            android:layout_marginStart="20dp">
             <RadioButton
                 android:id="@+id/engineering_radio_btn"
                 android:layout_width="wrap_content"

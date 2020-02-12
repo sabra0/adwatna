@@ -13,41 +13,32 @@ import com.squareup.picasso.Picasso;
 public class ViewHolder extends RecyclerView.ViewHolder {
 
     View mView;
+    private ViewHolder.ClickListener mClickListener;
 
     public ViewHolder(@NonNull View itemView) {
         super(itemView);
 
         mView=itemView;
 
-//        itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                mClickListener.onItemClick(v, getAdapterPosition());
-//
-//            }
-//        });
-//        itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//
-//                mClickListener.onItemLongClick(v, getAdapterPosition());
-//                return true;
-//
-//            }
-//        });
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mClickListener.onItemClick(v, getAdapterPosition());
+
+            }
+        });
+        itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                mClickListener.onItemLongClick(v, getAdapterPosition());
+                return true;
+
+            }
+        });
     }
-//    private ViewHolder.ClickListener mClickListener;
 
-    //Interface to send callbacks...
-//    public interface ClickListener{
-//        public void onItemClick(View view, int position);
-//        public void onItemLongClick(View view, int position);
-//    }
-
-//    public void setOnClickListener(ViewHolder.ClickListener clickListener){
-//        mClickListener = clickListener;
-//    }
 
     //set details to recyclerView row
     public void setDetails(Context context,String titile, String price,String image){
@@ -60,4 +51,16 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         mDetailsTv.setText(price);
         Picasso.get().load(image).into(mImageIv);
     }
+
+    //Interface to send callbacks...
+    public interface ClickListener{
+        public void onItemClick(View view, int position);
+        public void onItemLongClick(View view, int position);
+    }
+
+    public void setOnClickListener(ViewHolder.ClickListener clickListener){
+        mClickListener = clickListener;
+    }
+
+
 }
