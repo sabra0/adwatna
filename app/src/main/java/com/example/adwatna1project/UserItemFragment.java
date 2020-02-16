@@ -76,10 +76,10 @@ public class UserItemFragment extends Fragment {
                 .setQuery(allDataReference,Model.class)
                 .build();
 
-        final FirebaseRecyclerAdapter<Model, AllCategoriesFragment.ViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Model, AllCategoriesFragment.ViewHolder>(options) {
+        final FirebaseRecyclerAdapter<Model, ViewHolder> adapter =
+                new FirebaseRecyclerAdapter<Model,ViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull AllCategoriesFragment.ViewHolder holder, final int position, @NonNull Model model) {
+                    protected void onBindViewHolder(@NonNull ViewHolder holder, final int position, @NonNull Model model) {
                         holder.tittleTextView.setText(model.getTitle());
                         holder.priceTextView.setText(model.getPrice());
                         Picasso.get().load(model.getImage()).into(holder.itemImageView);
@@ -116,9 +116,9 @@ public class UserItemFragment extends Fragment {
 
                     @NonNull
                     @Override
-                    public AllCategoriesFragment.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item,parent,false);
-                        AllCategoriesFragment.ViewHolder viewHolder = new AllCategoriesFragment.ViewHolder(view);
+                        ViewHolder viewHolder = new ViewHolder(view);
                         return viewHolder;
                     }
                 };
@@ -126,39 +126,4 @@ public class UserItemFragment extends Fragment {
         adapter.startListening();
 
     }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView tittleTextView , priceTextView;
-        public ImageView itemImageView;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tittleTextView = itemView.findViewById(R.id.rTitleTv);
-            priceTextView = itemView.findViewById(R.id.rPriceTv);
-            itemImageView = itemView.findViewById(R.id.rImageView);
-
-        }
-    }
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        FirebaseRecyclerAdapter<Model,ViewHolder> firebaseRecyclerAdapter =
-//                new FirebaseRecyclerAdapter<Model, ViewHolder>(
-//                        Model.class,
-//                        R.layout.row_item,
-//                        ViewHolder.class,
-//                        allDataReference
-//                ) {
-//                    @Override
-//                    protected void populateViewHolder(ViewHolder viewHolder, Model model, int i) {
-//
-//                        viewHolder.setDetails(getActivity(),model.getTitle(),model.getPrice(),model.getImage());
-//                    }
-//                };
-//        //set adapter to recyclerView
-//        //todo adapter replace firebaseRecyclerAdapter
-//        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
-//    }
-
 }

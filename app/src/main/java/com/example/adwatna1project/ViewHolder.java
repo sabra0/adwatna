@@ -1,6 +1,5 @@
 package com.example.adwatna1project;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,59 +7,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
-
-public class ViewHolder extends RecyclerView.ViewHolder {
-
-    View mView;
-    private ViewHolder.ClickListener mClickListener;
+public  class ViewHolder extends RecyclerView.ViewHolder{
+    public TextView tittleTextView , priceTextView;
+    public ImageView itemImageView;
 
     public ViewHolder(@NonNull View itemView) {
         super(itemView);
-
-        mView=itemView;
-
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mClickListener.onItemClick(v, getAdapterPosition());
-
-            }
-        });
-        itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                mClickListener.onItemLongClick(v, getAdapterPosition());
-                return true;
-
-            }
-        });
+        tittleTextView = itemView.findViewById(R.id.rTitleTv);
+        priceTextView = itemView.findViewById(R.id.rPriceTv);
+        itemImageView = itemView.findViewById(R.id.rImageView);
     }
-
-
-    //set details to recyclerView row
-    public void setDetails(Context context,String titile, String price,String image){
-
-        TextView mTitleTv = mView.findViewById(R.id.rTitleTv);
-        TextView mDetailsTv = mView.findViewById(R.id.rPriceTv);
-        ImageView mImageIv = mView.findViewById(R.id.rImageView);
-
-        mTitleTv.setText(titile);
-        mDetailsTv.setText(price);
-        Picasso.get().load(image).into(mImageIv);
-    }
-
-    //Interface to send callbacks...
-    public interface ClickListener{
-        public void onItemClick(View view, int position);
-        public void onItemLongClick(View view, int position);
-    }
-
-    public void setOnClickListener(ViewHolder.ClickListener clickListener){
-        mClickListener = clickListener;
-    }
-
-
 }

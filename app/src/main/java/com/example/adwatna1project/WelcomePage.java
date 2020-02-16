@@ -215,17 +215,17 @@ public class WelcomePage extends AppCompatActivity {
     //search function
 //    private void fireBaseSearch (String searchText){
 //
-//        Query fireBaseSearchQuery = allDataReference.orderByChild("title").startAt(searchText).endAt(searchText + "uf8ff");
+//        Query fireBaseSearchQuery = artDatataReference.orderByChild("title").startAt(searchText).endAt(searchText + "uf8ff");
 //
-//        FirebaseRecyclerAdapter<Model,ViewHolder> firebaseRecyclerAdapter =
-//                new FirebaseRecyclerAdapter<Model, ViewHolder>(
+//        FirebaseRecyclerAdapter<Model,ViewHolder2> firebaseRecyclerAdapter =
+//                new FirebaseRecyclerAdapter<Model, ViewHolder2>(
 //                        Model.class,
 //                        R.layout.row_item,
-//                        ViewHolder.class,
+//                        ViewHolder2.class,
 //                        fireBaseSearchQuery
 //                ) {
 //                    @Override
-//                    protected void populateViewHolder(ViewHolder viewHolder, Model model, int i) {
+//                    protected void populateViewHolder(ViewHolder2 viewHolder, Model model, int i) {
 //
 //                        viewHolder.setDetails(getApplicationContext(),model.getTitle(),model.getPrice(),model.getImage());
 //                    }
