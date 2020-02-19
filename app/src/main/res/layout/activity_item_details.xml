@@ -1,104 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ItemDetailsActivity">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout"
+    android:layout_height="match_parent">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@drawable/layout_curve_login_signup">
+        android:layout_height="match_parent"
+        tools:context=".ItemDetailsActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/layout_curve_login_signup">
+            <TextView
+                android:id="@+id/back1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:drawableLeft="@drawable/ic_back"
+                android:background="#484c7f"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Item Details"
+                android:textAllCaps="true"
+                android:textColor="#fefefe"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="30sp"
+                android:id="@+id/upload_textView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
-            android:id="@+id/back1"
-            android:layout_width="wrap_content"
+            android:id="@+id/item_title_text_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:drawableLeft="@drawable/ic_back"
-            android:background="#484c7f"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Item Details"
-            android:textAllCaps="true"
-            android:textColor="#fefefe"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Title"
+            android:layout_below="@id/layout"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
             android:textSize="30sp"
-            android:id="@+id/upload_textView" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textColor="#484c7f"/>
+        <ImageView
+            android:id="@+id/item_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/item_title_text_view"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/profile_image"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/item_desc_text_view1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:layout_below="@id/item_image_view"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:textSize="20sp"
+            android:textColor="#ac8daf"/>
+        <TextView
+            android:id="@+id/item_desc_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:layout_below="@id/item_desc_text_view1"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:textSize="20sp"
+            android:textColor="#484c7f"/>
+        <TextView
+            android:id="@+id/item_price_text_view1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price :"
+            android:layout_below="@id/item_desc_text_view"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:textColor="#ac8daf"/>
 
-    <TextView
-        android:id="@+id/item_title_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Title"
-        android:layout_below="@id/layout"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:textSize="30sp"
-        android:textColor="#484c7f"/>
-    <ImageView
-        android:id="@+id/item_image_view"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@id/item_title_text_view"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/profile_image"
-        android:layout_centerHorizontal="true"/>
-    <TextView
-        android:id="@+id/item_desc_text_view1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:layout_below="@id/item_image_view"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:textSize="20sp"
-        android:textColor="#ac8daf"/>
-    <TextView
-        android:id="@+id/item_desc_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:layout_below="@id/item_desc_text_view1"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:textSize="20sp"
-        android:textColor="#484c7f"/>
-    <TextView
-        android:id="@+id/item_price_text_view1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price :"
-        android:layout_below="@id/item_desc_text_view"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
-        android:textColor="#ac8daf"/>
-
-    <TextView
-        android:id="@+id/item_price_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price"
-        android:layout_toRightOf="@id/item_price_text_view1"
-        android:layout_below="@id/item_desc_text_view"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
-        android:textColor="#484c7f"/>
+        <TextView
+            android:id="@+id/item_price_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:layout_toRightOf="@id/item_price_text_view1"
+            android:layout_below="@id/item_desc_text_view"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:textColor="#484c7f"/>
 
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

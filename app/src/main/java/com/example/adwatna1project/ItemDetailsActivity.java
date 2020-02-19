@@ -26,6 +26,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ItemDetailsActivity.this,WelcomePage.class));
+                finish();
             }
         });
 
