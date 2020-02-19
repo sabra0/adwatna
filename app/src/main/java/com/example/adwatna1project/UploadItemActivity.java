@@ -211,6 +211,7 @@ public class UploadItemActivity extends AppCompatActivity {
                     profileMap.put("title", itemTitle);
                     profileMap.put("description", itemDesc);
                     profileMap.put("price", itemPrice);
+                    profileMap.put("ownerID", currentUserId);
                     itemRef.child("Data").child(currentItemId).updateChildren(profileMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

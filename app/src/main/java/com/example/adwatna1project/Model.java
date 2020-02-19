@@ -1,7 +1,7 @@
 package com.example.adwatna1project;
 
 public class Model {
-    String title,image,description,price; //these names must match with names in database
+    String title,image,description,price,category,ownerID; //these names must match with names in database
 
     public Model(){
 
@@ -37,5 +37,21 @@ public class Model {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getOwnerID() {
+        return ownerID;
+    }
+
+    public void setOwnerID(String ownerID) {
+        this.ownerID = ownerID;
     }
 }

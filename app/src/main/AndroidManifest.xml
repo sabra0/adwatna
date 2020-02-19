@@ -14,7 +14,8 @@
         android:roundIcon="@drawable/mysplash"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ItemDetailsActivity"></activity>
+        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".ItemDetailsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".UploadItemActivity" />
         <activity android:name=".SettingActivity" />

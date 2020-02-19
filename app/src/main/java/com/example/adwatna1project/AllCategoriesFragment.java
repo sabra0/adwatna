@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -131,17 +130,12 @@ public class AllCategoriesFragment extends Fragment {
                                 intent.putExtra("description",model.getDescription());
                                 intent.putExtra("price",model.getPrice());
                                 Drawable mDrawable = holder.itemImageView.getDrawable();
-                                if (mDrawable!=null){
-                                    Bitmap bitmap = ((BitmapDrawable)mDrawable).getBitmap();
-                                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                                    bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
-                                    byte[] bytes = byteArrayOutputStream.toByteArray();
-                                    intent.putExtra("image",bytes);
-                                    startActivity(intent);
-                                }
-                                else {
-                                    Toast.makeText(getActivity(), "please wait!", Toast.LENGTH_SHORT).show();
-                                }
+                                Bitmap bitmap = ((BitmapDrawable)mDrawable).getBitmap();
+                                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                                bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+                                byte[] bytes = byteArrayOutputStream.toByteArray();
+                                intent.putExtra("image",bytes);
+                                startActivity(intent);
                             }
                         });
 
