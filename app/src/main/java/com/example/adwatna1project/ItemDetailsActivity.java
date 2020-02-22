@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ItemDetailsActivity extends AppCompatActivity {
 
-    TextView titleTextView , descTextView , priceTextView ,backTo,ownerNameTextView;
+    TextView titleTextView , descTextView , priceTextView ,backTo,ownerNameTextView,chatTextView;
     ImageView itemImageView,chatIcon;
     CircleImageView profileImage;
 
@@ -33,6 +34,9 @@ public class ItemDetailsActivity extends AppCompatActivity {
     String ownerId;
     String name;
     String retrieveProfileImage;
+
+    FirebaseAuth mAuth;
+    String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         profileImage = findViewById(R.id.profile_image);
         ownerNameTextView = findViewById(R.id.username_text_view);
         chatIcon = findViewById(R.id.chat_icon);
+        chatTextView = findViewById(R.id.text_view);
 
         userRef = FirebaseDatabase.getInstance().getReference();
 
@@ -71,6 +76,14 @@ public class ItemDetailsActivity extends AppCompatActivity {
         itemImageView.setImageBitmap(bitmap);
         descTextView.setText(description);
         priceTextView.setText(price);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.getCurrentUser().getUid();
+
+        if (currentUserId.equals(ownerId)){
+            chatTextView.setVisibility(View.GONE);
+            chatIcon.setVisibility(View.GONE);
+        }
 
         retrieveUserInfo();
     }

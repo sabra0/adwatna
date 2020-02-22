@@ -64,6 +64,10 @@ public class WelcomePage extends AppCompatActivity {
 //                        Toast.makeText(WelcomePage.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
 //                        return true;
                         int id = item.getItemId();
+                        if (id == R.id.chat){
+                            startActivity(new Intent(WelcomePage.this, DisplayChatWithUsersActivity.class));
+                            return true;
+                        }
                         if (id == R.id.upload_item){
                             startActivity(new Intent(WelcomePage.this, UploadItemActivity.class));
                             return true;

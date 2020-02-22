@@ -134,6 +134,7 @@ public class DevicesCategoryFragment extends Fragment {
                                     bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
                                     byte[] bytes = byteArrayOutputStream.toByteArray();
                                     intent.putExtra("image",bytes);
+                                    intent.putExtra("ownerID",model.getOwnerID());
                                     startActivity(intent);
                                 }
                                else{
