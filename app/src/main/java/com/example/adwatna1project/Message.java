@@ -3,13 +3,16 @@ package com.example.adwatna1project;
 public class Message {
 
     private String from , message, to;
+    private boolean isseen;
 
     public Message() {
     }
 
-    public Message(String from, String message) {
+    public Message(String from, String message, String to, boolean isseen) {
         this.from = from;
         this.message = message;
+        this.to = to;
+        this.isseen = isseen;
     }
 
     public String getFrom() {
@@ -34,5 +37,13 @@ public class Message {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public boolean isIsseen() {
+        return isseen;
+    }
+
+    public void setIsseen(boolean isseen) {
+        this.isseen = isseen;
     }
 }

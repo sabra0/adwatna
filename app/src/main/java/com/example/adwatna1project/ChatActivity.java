@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -55,11 +56,15 @@ public class ChatActivity extends AppCompatActivity {
     MessageAdapter messageAdapter;
     RecyclerView userMessageList;
 
+    ValueEventListener seenListener;
+    DatabaseReference reference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
 
         messageList = new ArrayList<>();
 
@@ -105,6 +110,9 @@ public class ChatActivity extends AppCompatActivity {
                 sendMessage();
             }
         });
+
+        reference = FirebaseDatabase.getInstance().getReference("Messages");
+        seenMessage(messageSenderID);
     }
 
 
@@ -131,7 +139,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     }
                 });
-}
+    }
 
 
     private void sendMessage() {
@@ -152,6 +160,7 @@ public class ChatActivity extends AppCompatActivity {
             messageTextBody.put("from", messageSenderID);
             messageTextBody.put("to", messageReceiverID);
             messageTextBody.put("messageID", messagePushID);
+            messageTextBody.put("isseen", false);
 
             rootRef.child("Messages").child(messagePushID).updateChildren(messageTextBody).addOnCompleteListener(new OnCompleteListener() {
                 @Override
@@ -179,8 +188,40 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
 
+            HashMap<String, Object> userMap = new HashMap<>();
+            userMap.put("id", messageSenderID);
+            DatabaseReference chatRef2 = FirebaseDatabase.getInstance().getReference("ChatList");
+            chatRef2.child(messageReceiverID).child(messageSenderID).updateChildren(userMap);
         }
 
     }
-    //comment
+
+    public void seenMessage(final String userId){
+        seenListener = reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Message message = snapshot.getValue(Message.class);
+                    if (message.getTo().equals(messageSenderID) && message.getFrom().equals(userId)){
+                        HashMap<String ,Object> hashMap = new HashMap<>();
+                        hashMap.put("isseen",true);
+                        snapshot.getRef().updateChildren(hashMap);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        reference.removeEventListener(seenListener);
+    }
 }

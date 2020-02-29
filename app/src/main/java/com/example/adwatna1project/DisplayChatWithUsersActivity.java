@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,10 +34,20 @@ public class DisplayChatWithUsersActivity extends AppCompatActivity {
 
     List<ChatList> userList;
 
+    TextView backTo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_chat_with_users);
+
+        backTo = findViewById(R.id.back1);
+        backTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DisplayChatWithUsersActivity.this,WelcomePage.class));
+            }
+        });
 
         recyclerView = findViewById(R.id.users_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
