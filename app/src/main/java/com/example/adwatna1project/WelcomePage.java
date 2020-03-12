@@ -1,9 +1,11 @@
 package com.example.adwatna1project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -11,14 +13,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class WelcomePage extends AppCompatActivity {
+    private static final String TAG = "MyMessigingService";
 
     FirebaseAuth auth;
 
@@ -214,6 +222,24 @@ public class WelcomePage extends AppCompatActivity {
 
             }
         });
+        //for notification
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if(!task.isSuccessful()){
+                            Log.w(TAG,"getInstanceId failed",task.getException());
+                            return;
+                        }
+                        //get new instance id token
+                        String token =task.getResult().getToken();
+
+                        //log and toast
+                        String msg ="instance id token: "+token;
+                        Log.d(TAG,msg);
+                        Toast.makeText(WelcomePage.this, "msg", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
     //search function
@@ -313,4 +339,5 @@ public class WelcomePage extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }*/
+
 }

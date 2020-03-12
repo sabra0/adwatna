@@ -5,11 +5,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -29,6 +37,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.RemoteMessage;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -40,6 +49,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatActivity extends AppCompatActivity {
 
+    static String messageText;
     String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID;
     TextView userName;
     CircleImageView userImage;
@@ -132,6 +142,7 @@ public class ChatActivity extends AppCompatActivity {
                             }
                             messageAdapter.notifyDataSetChanged();
                             userMessageList.smoothScrollToPosition(userMessageList.getAdapter().getItemCount());
+                            sendNotification();
                         }
                     }
                     @Override
@@ -143,7 +154,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private void sendMessage() {
-        String messageText = messageInputText.getText().toString();
+        messageText = messageInputText.getText().toString();
 
         if (TextUtils.isEmpty(messageText))
         {
@@ -224,4 +235,48 @@ public class ChatActivity extends AppCompatActivity {
         super.onPause();
         reference.removeEventListener(seenListener);
     }
+    //for notification
+    private void sendNotification() {
+
+        Intent intent = new Intent(this, DisplayChatWithUsersActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, /*(int) when*/1, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(Context.NOTIFICATION_SERVICE);
+        String NOTIFICATION_CHANNEL_ID = "MyId";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            @SuppressLint("WrongConstant") NotificationChannel notificationChannel
+                    = new NotificationChannel
+                    (NOTIFICATION_CHANNEL_ID, "My Channel", NotificationManager.IMPORTANCE_MAX);
+
+            notificationChannel.setDescription("My channel for test FCM");
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            notificationChannel.enableVibration(true);
+
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+
+        notificationBuilder.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setShowWhen(true)
+                .setSmallIcon(android.R.drawable.ic_notification_overlay)
+                .setTicker("Ticker")
+                .setContentTitle(messageSenderID)
+                .setContentText(messageText)
+                .setContentInfo("info")
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
+
+        notificationManager.notify(1, notificationBuilder.build());
+
+    }
+
 }
