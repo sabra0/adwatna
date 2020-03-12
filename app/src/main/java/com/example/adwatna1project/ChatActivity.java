@@ -235,6 +235,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onPause();
         reference.removeEventListener(seenListener);
     }
+
     //for notification
     private void sendNotification() {
 
