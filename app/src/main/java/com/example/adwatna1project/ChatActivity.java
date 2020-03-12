@@ -118,6 +118,8 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendMessage();
+                sendNotification();
+
             }
         });
 
@@ -142,7 +144,6 @@ public class ChatActivity extends AppCompatActivity {
                             }
                             messageAdapter.notifyDataSetChanged();
                             userMessageList.smoothScrollToPosition(userMessageList.getAdapter().getItemCount());
-                            sendNotification();
                         }
                     }
                     @Override
