@@ -21,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.FileInputStream;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ItemDetailsActivity extends AppCompatActivity {
@@ -64,16 +66,25 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         userRef = FirebaseDatabase.getInstance().getReference();
 
-        byte[] bytes = getIntent().getByteArrayExtra("image");
+//        byte[] bytes = getIntent().getByteArrayExtra("image");
         String title = getIntent().getStringExtra("title");
         String description = getIntent().getStringExtra("description");
         String price = getIntent().getStringExtra("price");
         ownerId = getIntent().getStringExtra("ownerID");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
 
+        Bitmap bmp = null;
+        String filename = getIntent().getStringExtra("image");
+        try {
+            FileInputStream is = this.openFileInput(filename);
+            bmp = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         titleTextView.setText(title);
-        itemImageView.setImageBitmap(bitmap);
+        itemImageView.setImageBitmap(bmp);
         descTextView.setText(description);
         priceTextView.setText(price);
 

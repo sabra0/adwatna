@@ -1,5 +1,6 @@
 package com.example.adwatna1project;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -28,6 +29,7 @@ import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 
 public class ArtCategoryFragment extends Fragment {
     static RecyclerView mRecyclerView;
@@ -124,24 +126,40 @@ public class ArtCategoryFragment extends Fragment {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(getContext(),ItemDetailsActivity.class);
-                                intent.putExtra("title",model.getTitle());
-                                intent.putExtra("description",model.getDescription());
-                                intent.putExtra("price",model.getPrice());
-                                Drawable mDrawable = holder.itemImageView.getDrawable();
-                                if(mDrawable!=null){
-                                    Bitmap bitmap = ((BitmapDrawable)mDrawable).getBitmap();
-                                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                                    bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
-                                    byte[] bytes = byteArrayOutputStream.toByteArray();
-                                    intent.putExtra("image",bytes);
-                                    intent.putExtra("ownerID",model.getOwnerID());
-                                    startActivity(intent);
-                                }
-                                else{
-                                    Toast.makeText(getActivity(), "please wait!", Toast.LENGTH_SHORT).show();
-                                }
 
+                                //using thread to prevent user from clicking on item until the image load
+                                Thread thread = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try  {
+                                            Intent intent = new Intent(getContext(),ItemDetailsActivity.class);
+                                            intent.putExtra("title",model.getTitle());
+                                            intent.putExtra("description",model.getDescription());
+                                            intent.putExtra("price",model.getPrice());
+                                            Drawable mDrawable = holder.itemImageView.getDrawable();
+                                            Bitmap bitmap = ((BitmapDrawable)mDrawable).getBitmap();
+
+//                                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//                                            bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+//                                            byte[] bytes = byteArrayOutputStream.toByteArray();
+
+                                            //Write file
+                                            String filename = "bitmap.png";
+                                            FileOutputStream stream = getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
+                                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+                                            stream.close();
+
+                                            intent.putExtra("image",filename);
+                                            intent.putExtra("ownerID",model.getOwnerID());
+                                            startActivity(intent);
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                                thread.start();
                             }
                         });
 

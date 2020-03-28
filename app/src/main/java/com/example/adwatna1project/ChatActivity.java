@@ -139,7 +139,6 @@ public class ChatActivity extends AppCompatActivity {
                             if (messages.getTo().equals(messageReceiverID) && messages.getFrom().equals(messageSenderID)
                             ||messages.getFrom().equals(messageReceiverID) && messages.getTo().equals(messageSenderID)){
                                 messageList.add(messages);
-                                sendNotification();
                             }
 
                             messageAdapter.notifyDataSetChanged();
@@ -238,47 +237,46 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     //for notification
-    private void sendNotification() {
-
-        Intent intent = new Intent(this, DisplayChatWithUsersActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, /*(int) when*/1, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-
-        NotificationManager notificationManager = (NotificationManager)
-                getSystemService(Context.NOTIFICATION_SERVICE);
-        String NOTIFICATION_CHANNEL_ID = "MyId";
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            @SuppressLint("WrongConstant") NotificationChannel notificationChannel
-                    = new NotificationChannel
-                    (NOTIFICATION_CHANNEL_ID, "My Channel", NotificationManager.IMPORTANCE_MAX);
-
-            notificationChannel.setDescription("My channel for test FCM");
-            notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.RED);
-            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
-            notificationChannel.enableVibration(true);
-
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-
-        notificationBuilder.setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setWhen(System.currentTimeMillis())
-                .setShowWhen(true)
-                .setSmallIcon(android.R.drawable.ic_notification_overlay)
-                .setTicker("Ticker")
-                .setContentTitle(messageSenderID)
-                .setContentText(messageText)
-                .setContentInfo("info")
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
-
-        notificationManager.notify(1, notificationBuilder.build());
-
-    }
+//    private void sendNotification() {
+//
+//        Intent intent = new Intent(this, DisplayChatWithUsersActivity.class);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, /*(int) when*/1, intent,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        NotificationManager notificationManager = (NotificationManager)
+//                getSystemService(Context.NOTIFICATION_SERVICE);
+//        String NOTIFICATION_CHANNEL_ID = "MyId";
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//
+//            @SuppressLint("WrongConstant") NotificationChannel notificationChannel
+//                    = new NotificationChannel
+//                    (NOTIFICATION_CHANNEL_ID, "My Channel", NotificationManager.IMPORTANCE_MAX);
+//
+//            notificationChannel.setDescription("My channel for test FCM");
+//            notificationChannel.enableLights(true);
+//            notificationChannel.setLightColor(Color.RED);
+//            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+//            notificationChannel.enableVibration(true);
+//
+//            notificationManager.createNotificationChannel(notificationChannel);
+//        }
+//
+//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+//
+//        notificationBuilder.setAutoCancel(true)
+//                .setDefaults(Notification.DEFAULT_ALL)
+//                .setWhen(System.currentTimeMillis())
+//                .setShowWhen(true)
+//                .setSmallIcon(android.R.drawable.ic_notification_overlay)
+//                .setTicker("Ticker")
+//                .setContentTitle(messageSenderID)
+//                .setContentText(messageText)
+//                .setContentInfo("info")
+//                .setContentIntent(pendingIntent);
+//
+//        notificationManager.notify(1, notificationBuilder.build());
+//
+//    }
 
 }
