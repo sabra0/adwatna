@@ -19,12 +19,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
-    List<User> userList = new ArrayList<>();
+    List<Users> userList = new ArrayList<>();
     onItemClickListener onItemClickListener;
     Context context;
 
 
-    public UserAdapter(List<User> userList, Context context) {
+    public UserAdapter(List<Users> userList, Context context) {
         this.userList = userList;
         this.context = context;
     }
@@ -39,7 +39,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final User currentUser = userList.get(position);
+        final Users currentUser = userList.get(position);
         holder.username.setText(currentUser.getName());
         Picasso.get().load(currentUser.getImage()).into(holder.profileImage);
 

@@ -9,10 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +24,7 @@ public class DisplayChatWithUsersActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     UserAdapter userAdapter;
-    List<User> mUsers;
+    List<Users> mUsers;
 
     String currentUserId;
     FirebaseAuth mAuth;
@@ -87,7 +85,7 @@ public class DisplayChatWithUsersActivity extends AppCompatActivity {
                 mUsers.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    User user = snapshot.getValue(User.class);
+                    Users user = snapshot.getValue(Users.class);
                     for (ChatList chatList:userList){
                         if (user.getUid().equals(chatList.getId())){
                             mUsers.add(user);

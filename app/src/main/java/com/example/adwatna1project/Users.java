@@ -1,9 +1,9 @@
 package com.example.adwatna1project;
 
-public class User {
+public class Users {
     private String uid , Name , image;
 
-    public User() {
+    public Users() {
     }
 
     public String getName() {
