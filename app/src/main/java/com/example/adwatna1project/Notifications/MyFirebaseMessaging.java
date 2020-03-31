@@ -28,7 +28,7 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MyFirebaseMessaging extends FirebaseMessagingService {
 
     @Override
-    public void onNewToken(String s) {
+    public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
         String refreshToken = FirebaseInstanceId.getInstance().getInstanceId().getResult().getToken();
         if (refreshToken != null){
