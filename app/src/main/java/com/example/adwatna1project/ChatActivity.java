@@ -67,7 +67,7 @@ public class ChatActivity extends AppCompatActivity {
     DatabaseReference reference;
 
     APIService apiService;
-    boolean notify = false;
+//    boolean notify = false;
     String userid;
 
 
@@ -121,7 +121,7 @@ public class ChatActivity extends AppCompatActivity {
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notify = true;
+//                notify = true;
                 sendMessage();
             }
         });
@@ -194,11 +194,11 @@ public class ChatActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Users user = dataSnapshot.getValue(Users.class);
-                    if (notify){
-                        sendNotification(messageReceiverID,user.getName(),msg);
-                    }
-                    notify = false;
-                    
+//                    if (notify){
+//
+//                    }
+//                    notify = false;
+                    sendNotification(messageReceiverID,user.getName(),msg);
                 }
 
                 @Override
