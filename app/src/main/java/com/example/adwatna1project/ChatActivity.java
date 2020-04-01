@@ -186,7 +186,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
 
-            updateToken(FirebaseInstanceId.getInstance().getToken());
+//            updateToken(FirebaseInstanceId.getInstance().getToken());
 
             final String msg = messageText;
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(messageSenderID);
@@ -277,11 +277,14 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    private void updateToken(String token) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
-        Token token1 = new Token(token);
-        reference.child(messageSenderID).setValue(token1);
-    }
+//    private void updateToken(String token) {
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+//        Token token1 = new Token(token);
+//        reference.child(messageSenderID).setValue(token1);
+//
+//    }
+
+
 
     public void seenMessage(final String userId){
         seenListener = reference.addValueEventListener(new ValueEventListener() {

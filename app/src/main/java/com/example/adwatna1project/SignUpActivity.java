@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.adwatna1project.Notifications.Token;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class SignUpActivity extends AppCompatActivity {
     RadioGroup radioGroup;
@@ -40,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     FirebaseAuth fAuth;
     DatabaseReference databaseReference;
+    String currentUserId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,10 @@ public class SignUpActivity extends AppCompatActivity {
         radioGroup=findViewById(R.id.gender_layout);
         btn1=findViewById(R.id.btn1);
         btn2=findViewById(R.id.btn2);
+
+        fAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+//        currentUserId = fAuth.getCurrentUser().getUid();
 
 //fire base reference
         mRef=new Firebase("https://adwatna-adfb8.firebaseio.com/Users");
@@ -131,8 +138,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        fAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+
 
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,11 +199,11 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    String currentUserId = fAuth.getCurrentUser().getUid();
 
                                     Toast.makeText(SignUpActivity.this, "Registration Complete", Toast.LENGTH_LONG).show();
                                     startActivity(new Intent(getApplicationContext(),WelcomePage.class));
 
+                                    currentUserId = fAuth.getCurrentUser().getUid();
                                     //now updating data base with new user info
                                     Firebase userChild = mRef.child(currentUserId);
 
@@ -214,6 +220,9 @@ public class SignUpActivity extends AppCompatActivity {
                                     Firebase collageChild = userChild.child("Collage");
                                     collageChild.setValue(college);
 
+                                    //For Notification
+                                    updateToken(FirebaseInstanceId.getInstance().getToken());
+
                                 } else {
                                     // If sign up fails, display a message to the user.
                                     Toast.makeText(SignUpActivity.this, "Registration is Failed", Toast.LENGTH_LONG).show();
@@ -222,5 +231,13 @@ public class SignUpActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    //For Notification
+    private void updateToken(String token) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1 = new Token(token);
+        reference.child(currentUserId).setValue(token1);
+
     }
 }
