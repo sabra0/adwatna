@@ -220,7 +220,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     Firebase collageChild = userChild.child("Collage");
                                     collageChild.setValue(college);
 
-                                    //For Notification
+                                    // Notification
                                     updateToken(FirebaseInstanceId.getInstance().getToken());
 
                                 } else {
