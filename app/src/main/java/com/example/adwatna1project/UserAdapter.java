@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,14 +20,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
-    List<Users> userList = new ArrayList<>();
+    List<Users> userList;
     onItemClickListener onItemClickListener;
     Context context;
+    private boolean isChat;
 
 
-    public UserAdapter(List<Users> userList, Context context) {
+    public UserAdapter(List<Users> userList, Context context,boolean isChat) {
         this.userList = userList;
         this.context = context;
+        this.isChat=isChat;
     }
 
     @NonNull
@@ -42,6 +45,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         final Users currentUser = userList.get(position);
         holder.username.setText(currentUser.getName());
         Picasso.get().load(currentUser.getImage()).into(holder.profileImage);
+
+        if(isChat){
+            if (currentUser.getStatus().equals("online")){
+                holder.imgOn.setVisibility(View.VISIBLE);
+                holder.imgOff.setVisibility(View.GONE);
+            }else{
+                holder.imgOn.setVisibility(View.GONE);
+                holder.imgOff.setVisibility(View.VISIBLE);
+            }
+        }else {
+            holder.imgOff.setVisibility(View.GONE);
+            holder.imgOn.setVisibility(View.GONE);
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,12 +80,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView username;
         public CircleImageView profileImage;
+        private ImageView imgOn;
+        private ImageView imgOff;
         onItemClickListener onItemClickListener;
 
         public ViewHolder(@NonNull View itemView, onItemClickListener onItemClickListener) {
             super(itemView);
             username = itemView.findViewById(R.id.username_text_view);
             profileImage = itemView.findViewById(R.id.profile_image);
+            imgOn = itemView.findViewById(R.id.img_on);
+            imgOff = itemView.findViewById(R.id.img_off);
+
             this.onItemClickListener = onItemClickListener;
         }
 

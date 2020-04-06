@@ -25,6 +25,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import java.util.HashMap;
+
 public class WelcomePage extends AppCompatActivity {
     private static final String TAG = "MyMessigingService";
 
@@ -73,7 +75,7 @@ public class WelcomePage extends AppCompatActivity {
 //                        return true;
                         int id = item.getItemId();
                         if (id == R.id.chat){
-                            startActivity(new Intent(WelcomePage.this, DisplayChatWithUsersActivity.class));
+                            startActivity(new Intent(getApplicationContext(), DisplayChatWithUsersActivity.class));
                             return true;
                         }
                         if (id == R.id.upload_item){
@@ -85,6 +87,7 @@ public class WelcomePage extends AppCompatActivity {
                             return true;
                         }
                         if (id == R.id.logout){
+                            status("offline");
                             signOut();
                             return true;
                         }
@@ -242,38 +245,6 @@ public class WelcomePage extends AppCompatActivity {
                 });
 
     }
-    //search function
-//    private void fireBaseSearch (String searchText){
-//
-//        Query fireBaseSearchQuery = artDatataReference.orderByChild("title").startAt(searchText).endAt(searchText + "uf8ff");
-//
-//        FirebaseRecyclerAdapter<Model,ViewHolder2> firebaseRecyclerAdapter =
-//                new FirebaseRecyclerAdapter<Model, ViewHolder2>(
-//                        Model.class,
-//                        R.layout.row_item,
-//                        ViewHolder2.class,
-//                        fireBaseSearchQuery
-//                ) {
-//                    @Override
-//                    protected void populateViewHolder(ViewHolder2 viewHolder, Model model, int i) {
-//
-//                        viewHolder.setDetails(getApplicationContext(),model.getTitle(),model.getPrice(),model.getImage());
-//                    }
-//                };
-//       /* //open all categories fragment after search
-//        getSupportFragmentManager().beginTransaction().replace(R.id.welcome_page_frame,new AllCategoriesFragment()).commit();
-//        //set  horizontal scroll view colors
-//        allCategories.setTextColor(getResources().getColor(R.color.colorAccent));
-//        engineeringCategory.setTextColor(getResources().getColor(R.color.colorBlack));
-//        artCategory.setTextColor(getResources().getColor(R.color.colorBlack));
-//        electronicsCategory.setTextColor(getResources().getColor(R.color.colorBlack));
-//        booksCategory.setTextColor(getResources().getColor(R.color.colorBlack));
-//        devicesCategory.setTextColor(getResources().getColor(R.color.colorBlack));*/
-//
-//        //set adapter to recyclerView
-//        AllCategoriesFragment.mRecyclerView.setAdapter(firebaseRecyclerAdapter);
-//
-//    }
     private void userValidation(){
         if(auth.getCurrentUser()==null){
             startActivity(new Intent(WelcomePage.this,HomeActivity.class));
@@ -286,58 +257,29 @@ public class WelcomePage extends AppCompatActivity {
         userValidation();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == R.id.action_settings){
-//            Toast.makeText(WelcomePage.this, "Setting....", Toast.LENGTH_LONG).show();
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
-
-    // for actionBar to make search button and options menu
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView =(SearchView) MenuItemCompat.getActionView(item);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                fireBaseSearch(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //filter as you type in search
-                fireBaseSearch(newText);
-                return false;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
+    private void status(String status){
+        allDataReference=FirebaseDatabase.getInstance().getReference("Users").child(auth.getCurrentUser().getUid());
+        HashMap<String,Object> hashMap=new HashMap<>();
+        hashMap.put("status",status);
+        allDataReference.updateChildren(hashMap);
     }
 
-    //for option item in activity
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
 
-        if (id==1){
-            //do some thing
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+        if(auth.getCurrentUser()!=null)
+        {
+            status("offline");
         }
-        return super.onOptionsItemSelected(item);
-    }*/
+    }
+
 
 }

@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DisplayChatWithUsersActivity extends AppCompatActivity {
@@ -92,7 +93,7 @@ public class DisplayChatWithUsersActivity extends AppCompatActivity {
                         }
                     }
                 }
-                userAdapter = new UserAdapter(mUsers,getApplicationContext());
+                userAdapter = new UserAdapter(mUsers,getApplicationContext(),true);
                 recyclerView.setAdapter(userAdapter);
             }
 
@@ -102,5 +103,22 @@ public class DisplayChatWithUsersActivity extends AppCompatActivity {
             }
         });
     }
+    private void status(String status){
+        reference=FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid());
+        HashMap<String,Object>hashMap=new HashMap<>();
+        hashMap.put("status",status);
+        reference.updateChildren(hashMap);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
+    }
 }

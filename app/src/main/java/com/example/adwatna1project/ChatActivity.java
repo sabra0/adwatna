@@ -57,6 +57,7 @@ public class ChatActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     DatabaseReference rootRef;
+    DatabaseReference statuRef;
 
     List<Message> messageList;
     LinearLayoutManager linearLayoutManager;
@@ -69,7 +70,7 @@ public class ChatActivity extends AppCompatActivity {
     APIService apiService;
 //    boolean notify = false;
     String userid;
-
+    TextView statusTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,8 @@ public class ChatActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
         rootRef = FirebaseDatabase.getInstance().getReference();
+        statuRef=rootRef.child("Users").child(messageReceiverID).child("status");
+
 
         ChatToolBar = findViewById(R.id.chat_toolbar);
         setSupportActionBar(ChatToolBar);
@@ -104,9 +107,25 @@ public class ChatActivity extends AppCompatActivity {
 
         userName = findViewById(R.id.custom_profile_name);
         userImage = findViewById(R.id.custom_profile_image);
+        statusTextView=findViewById(R.id.status);
 
         userName.setText(messageReceiverName);
         Picasso.get().load(messageReceiverImage).placeholder(R.drawable.profile_image).into(userImage);
+        //for online textView
+        statuRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String s = dataSnapshot.getValue(String.class);
+                if(s.equals("online"))
+                {
+                    statusTextView.setText(s);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         sendMessageButton = findViewById(R.id.send_message_btn);
         messageInputText = findViewById(R.id.input_message);
@@ -309,53 +328,30 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    @Override
+    /*@Override
     protected void onPause() {
         super.onPause();
         reference.removeEventListener(seenListener);
+    }*/
+
+    private void status(String status){
+        reference=FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getCurrentUser().getUid());
+        HashMap<String,Object>hashMap=new HashMap<>();
+        hashMap.put("status",status);
+        reference.updateChildren(hashMap);
     }
 
-    //for notification
-//    private void sendNotification() {
-//
-//        Intent intent = new Intent(this, DisplayChatWithUsersActivity.class);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, /*(int) when*/1, intent,
-//                PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//        NotificationManager notificationManager = (NotificationManager)
-//                getSystemService(Context.NOTIFICATION_SERVICE);
-//        String NOTIFICATION_CHANNEL_ID = "MyId";
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//
-//            @SuppressLint("WrongConstant") NotificationChannel notificationChannel
-//                    = new NotificationChannel
-//                    (NOTIFICATION_CHANNEL_ID, "My Channel", NotificationManager.IMPORTANCE_MAX);
-//
-//            notificationChannel.setDescription("My channel for test FCM");
-//            notificationChannel.enableLights(true);
-//            notificationChannel.setLightColor(Color.RED);
-//            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
-//            notificationChannel.enableVibration(true);
-//
-//            notificationManager.createNotificationChannel(notificationChannel);
-//        }
-//
-//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-//
-//        notificationBuilder.setAutoCancel(true)
-//                .setDefaults(Notification.DEFAULT_ALL)
-//                .setWhen(System.currentTimeMillis())
-//                .setShowWhen(true)
-//                .setSmallIcon(android.R.drawable.ic_notification_overlay)
-//                .setTicker("Ticker")
-//                .setContentTitle(messageSenderID)
-//                .setContentText(messageText)
-//                .setContentInfo("info")
-//                .setContentIntent(pendingIntent);
-//
-//        notificationManager.notify(1, notificationBuilder.build());
-//
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
+        reference.removeEventListener(seenListener);
+
+    }
 }

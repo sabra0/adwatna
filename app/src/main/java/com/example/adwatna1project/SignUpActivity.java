@@ -223,6 +223,10 @@ public class SignUpActivity extends AppCompatActivity {
                                     // Notification
                                     updateToken(FirebaseInstanceId.getInstance().getToken());
 
+                                    //online&offline
+                                    Firebase statusChild=userChild.child("status");
+                                    statusChild.setValue("offline");
+
                                 } else {
                                     // If sign up fails, display a message to the user.
                                     Toast.makeText(SignUpActivity.this, "Registration is Failed", Toast.LENGTH_LONG).show();
