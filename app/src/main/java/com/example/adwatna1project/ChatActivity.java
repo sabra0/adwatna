@@ -217,7 +217,7 @@ public class ChatActivity extends AppCompatActivity {
                     sendNotification(messageReceiverID,user.getName(),msg);
                     }
                     notify = false;
-                    sendNotification(messageReceiverID,user.getName(),msg);
+//                    sendNotification(messageReceiverID,user.getName(),msg);
                 }
 
                 @Override
