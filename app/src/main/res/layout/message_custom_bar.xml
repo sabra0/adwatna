@@ -3,6 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/message_profile_image"
@@ -24,28 +27,36 @@
         android:padding="10dp"
         android:textSize="16sp"
         android:textColor="@android:color/black" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/sender_messsage_text"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentTop="@+id/receiver_message_text"
-        android:background="@drawable/send_message_text_view"
-        android:text="sender messages"
-        android:textSize="16sp"
-        android:padding="10dp"
-        android:textColor="@android:color/white"
-        android:layout_marginEnd="5dp"/>
-    <TextView
-        android:id="@+id/seen_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="seen"
-        android:layout_below="@id/receiver_message_text"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginStart="130dp">
+
+        <TextView
+            android:id="@+id/sender_messsage_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/send_message_text_view"
+            android:padding="10dp"
+            android:text="sender messages"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/seen_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sender_messsage_text"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:text="seen" />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

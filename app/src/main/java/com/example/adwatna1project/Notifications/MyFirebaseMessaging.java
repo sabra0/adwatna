@@ -17,6 +17,7 @@ import androidx.core.app.NotificationCompat;
 import com.example.adwatna1project.ChatActivity;
 import com.example.adwatna1project.DisplayChatWithUsersActivity;
 import com.example.adwatna1project.Message;
+import com.example.adwatna1project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -112,12 +113,13 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this,j,intent,PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(Integer.parseInt(icon))
+                .setSmallIcon(R.drawable.mysplash)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
                 .setSound(defaultSound)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .setWhen(System.currentTimeMillis());
         NotificationManager noti = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
         int i = 0;

@@ -86,7 +86,7 @@ public class MessageAdapter  extends RecyclerView.Adapter<MessageAdapter.Message
             holder.receiverMessageText.setText(messages.getMessage());
         }
 
-        if (position == usersMessage.size()-1){
+        if (usersMessage.size()>0){
             if (messages.isIsseen()){
                 holder.seenTextView.setVisibility(View.VISIBLE);
                 holder.seenTextView.setText("seen");

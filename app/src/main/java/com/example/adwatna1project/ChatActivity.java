@@ -65,6 +65,7 @@ public class ChatActivity extends AppCompatActivity {
     RecyclerView userMessageList;
 
     ValueEventListener seenListener;
+
     DatabaseReference reference;
 
     APIService apiService;
@@ -262,7 +263,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Token token = snapshot.getValue(Token.class);
-                    Data data = new Data(messageSenderID , R.drawable.mysplash, ""
+                    Data data = new Data(messageSenderID , 10000, ""
                             ,name +" : " + msg, userid);
 
                     Sender sender = new Sender(data,token.getToken());
@@ -350,8 +351,9 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        status("offline");
         reference.removeEventListener(seenListener);
+        status("offline");
+
 
     }
 }
