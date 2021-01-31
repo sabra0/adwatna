@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ADWATNA</string>
+    <string name="login">login</string>
+    <string name="sign">sign up</string>
+    <string name="email">Email</string>
+    <string name="password">password</string>
+    <string name="orlogin">or login using</string>
+    <string name="forget">forget password?</string>
+    <string name="orsign">or signup using</string>
+    <string name="name">Full name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="gender">Gender</string>
+    <string name="college">college</string>
+    <string name="female">female</string>
+    <string name="male">male</string>
+
+
+</resources>
